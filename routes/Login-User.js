@@ -133,7 +133,7 @@ async function loginWithGoogle() {
             localStorage.setItem('userEmail', user.email);
 
             alert("Đăng nhập thành công!");
-            window.location.href = "../home.html"; // Chuyển hướng tới trang chủ
+            window.location.href = "../views/home.html"; // Chuyển hướng tới trang chủ
         } else {
             alert("Tài khoản chưa được đăng ký. Vui lòng đăng ký trước khi đăng nhập.");
             await auth.signOut(); // Đăng xuất khỏi Google
@@ -160,7 +160,7 @@ async function registerWithGoogle() {
         if (userDocSnapshot.exists()) {
             // Nếu email đã tồn tại
             alert("Email này đã được đăng ký. Bạn có thể đăng nhập bằng tài khoản Google này.");
-            window.location.href = "../login-admin/login.html"; // Điều hướng tới trang đăng nhập
+            window.location.href = "Login.html"; // Điều hướng tới trang đăng nhập
         } else {
             // Nếu email chưa tồn tại, xác nhận trước khi đăng ký
             const confirmRegister = confirm(
@@ -184,7 +184,7 @@ async function registerWithGoogle() {
             });
 
             alert("Đăng ký với Google thành công!");
-            window.location.href = "../login-admin/login.html"; // Chuyển hướng tới trang đăng nhập
+            window.location.href = "Login.html"; // Chuyển hướng tới trang đăng nhập
         }
     } catch (error) {
         console.error("Lỗi khi đăng ký với Google:", error);

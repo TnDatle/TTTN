@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mesach-bookhaven</title>
     <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/home.html">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script type="module" src="/js/firebase-config.js"></script>
-    <script type="module" src="/js/cart.js"></script>
-    <script src="../js/checklogin.js"></script>
+    <script type="module" src="/routes/Firebase-Config.js"></script>
+    <script type="module" src="/public/js/Cart.js"></script>
+    <script src="/public/js/Checklogin.js"></script>
     <script type="module">
-        import { displayCart, updateQuantity, removeItem } from '/js/cart.js';
+        import { displayCart, updateQuantity, removeItem } from '/public/js/Cart.js';
         window.updateQuantity = updateQuantity;
         window.removeItem = removeItem;
     </script>
@@ -28,28 +27,26 @@
                 </div>
                 <div class="top-menu-items">
                     <ul>
-                        <li><a href="../home.html">Home</a></li>
                         <li>
-                            Giáo khoa tham khảo
+                            Laptop
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/manga-comic.html">Manga - Comic</a></li>
-                                <li><a href="/html-cartegory/tamly-kinangsong.html">Tâm lý - Kĩ năng sống</a></li>
-                                <li><a href="/html-cartegory/sachhocngoaingu.html">Sách học ngoại ngữ</a></li>
+                                <li><a href="/views/Cartegory/Gaming.html">Laptop Gaming</a></li>
+                                <li><a href="/views/Cartegory/Laptop.html">laptop Văn Phòng</a></li>
+                                <li><a href="/views/Cartegory/Workstation.html">Workstation Laptop</a></li>
                             </ul>
                         </li>
                         <li>
-                            VPP - Dụng cụ học sinh
+                            Phụ Kiện
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/but-viet.html">Bút - Viết</a></li>
-                                <li><a href="/html-cartegory/sanphamvegiay.html">Sản phẩm về giấy</a></li>
-                                <li><a href="/html-cartegory/dungcuvanphong.html">Dụng cụ văn phòng</a></li>
+                                <li><a href="/views/Cartegory/Gaming.html">Chuột</a></li>
+                                <li><a href="/views/Cartegory/Gaming.html">Bàn Phím</a></li>
+                                <li><a href="/views/Cartegory/Gaming.html">Tai Nghe</a></li>
                             </ul>
                         </li>
                         <li>
-                            Đồ chơi
+                            Cấu Hình
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/dochoigiaoduc.html">Đồ chơi giáo dục</a></li>
-                                <li><a href="/html-cartegory/mohinhcacloai.html">Mô hình các loại</a></li>
+                                <li><a href="/views/Cartegory/Gaming.html">So sánh cấu hình</a></li>
                             </ul>
                         </li>
                     </ul>

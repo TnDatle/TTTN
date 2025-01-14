@@ -1,4 +1,3 @@
-//Lây API của Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBzjS1Zf-rh1txM7KtoiGm5LkdDaWzTh-U",
     authDomain: "store-music-fae02.firebaseapp.com",
