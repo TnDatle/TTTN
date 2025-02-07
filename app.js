@@ -39,11 +39,13 @@ const server = http.createServer((req, res) => {
     // Kiểm tra route
     if (req.url === '/') {
         filePath = path.join(__dirname, 'views', 'home.html');
+    } else if (req.url === '/admin') {
+        filePath = path.join(__dirname, 'views', 'Admin', 'admin_main.html'); // Thêm route admin
     } else if (req.url.startsWith('/public/')) {
         filePath = path.join(__dirname, req.url);
     } else if (req.url.startsWith('/routes/')) {
         filePath = path.join(__dirname, req.url);
-    } else if (req.url.startsWith('/views/')) {
+    } else if (req.url.startsWith('/views/')) { 
         filePath = path.join(__dirname, req.url);
     } else {
         res.writeHead(404, { 'Content-Type': 'text/html' });
