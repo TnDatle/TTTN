@@ -161,12 +161,10 @@ body {
 
 /*------------------------- MAIN -----------------------*/
 .main {
-    position: absolute;
-    width: calc(100% - 300px);
-    left: 300px;
-    min-height: 100vh;
-    background: var(--white);
-    transition: 0.5s;
+    margin-left: 300px; /* Dịch nội dung chính sang phải để không bị đè lên navigation */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .main.active {
@@ -174,13 +172,267 @@ body {
     left: 80px;
 }
 
-.topbar {
+.content {
+    display: flex;
+    margin-top: 60px; /* Đẩy xuống dưới topbar */
+    padding: 20px;
+    flex: 1;
+    gap: 20px; /* Khoảng cách giữa form và product-list */
+}
+/*------------------------- FORMLAPTOPFORMLAPTOP -----------------------*/
+/* Điều chỉnh form */
+/* Form nằm bên trái */
+#laptopForm {
+    flex: 1; /* Form chiếm một phần nhỏ hơn */
+    max-width: 400px; /* Giới hạn chiều rộng của form */
+}
+
+#laptopForm h2 {
+    text-align: center;
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+#laptopForm label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#laptopForm input,
+#laptopForm textarea,
+#laptopForm select {
     width: 100%;
-    height: 60px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+#laptopForm input:focus,
+#laptopForm textarea:focus,
+#laptopForm select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+#laptopForm button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+#laptopForm button:hover {
+    background-color: #45a049;
+}
+
+/* Nút Xóa */
+#laptopForm button#deleteButton {
+    background-color: #f44336;
+}
+
+#laptopForm button#deleteButton:hover {
+    background-color: #d32f2f;
+}
+
+/* Phần hiển thị ảnh */
+#laptopForm img {
+    max-width: 200px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: block;
+}
+
+/*------------------------- FORMPRODUCT -----------------------*/
+/* Định dạng tổng thể của form */
+#productForm {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Tiêu đề form */
+#productForm h2 {
+    text-align: center;
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Định dạng label */
+#productForm label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+/* Định dạng input, textarea, select */
+#productForm input,
+#productForm textarea,
+#productForm select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Hiệu ứng focus khi nhập */
+#productForm input:focus,
+#productForm textarea:focus,
+#productForm select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Nút chung */
+#productForm button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+/* Hiệu ứng hover */
+#productForm button:hover {
+    background-color: #45a049;
+}
+
+/* Nút Cập nhật */
+#productForm button#updateButton {
+    background-color: #ff9800;
+}
+
+#productForm button#updateButton:hover {
+    background-color: #e68900;
+}
+
+/* Nút Xóa */
+#productForm button#deleteButton {
+    background-color: #f44336;
+}
+
+#productForm button#deleteButton:hover {
+    background-color: #d32f2f;
+}
+
+/* Ảnh sản phẩm */
+#productForm img {
+    max-width: 200px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #productForm {
+        max-width: 90%;
+    }
+}
+
+
+/*------------------------- ITEMCARD -----------------------*/
+.product-list {
+    flex: 2; /* Chiếm nhiều không gian hơn */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cột có chiều rộng tối thiểu 250px */
+    gap: 10px; /* Khoảng cách nhỏ hơn để không bị kéo dài */
+    padding: 10px;
+    align-items: start; /* Đảm bảo các thẻ không bị kéo giãn */
+}
+
+/* Card sản phẩm */
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    height: 300px; /* Đặt chiều cao cố định để giữ hình vuông */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px; /* Chiều cao cố định của ảnh */
+    object-fit: cover; /* Cắt ảnh vừa khít mà không méo */
+    border-radius: 5px;
+}
+
+.product-card h3 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.product-card p {
+    font-size: 14px;
+    margin: 2px 0;
+}
+
+.product-card .btn-group {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
+}
+
+.product-card button {
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.product-card .edit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.product-card .delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.topbar {
+    height: 60px;
+    width: calc(100% - 300px); /* Trừ đi phần navigation */
+    position: fixed;
+    top: 0;
+    left: 300px; /* Căn đúng với cạnh phải của navigation */
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    display: flex;
     align-items: center;
     padding: 0 10px;
+    z-index: 100;
 }
 
 .toggle {
