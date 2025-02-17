@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="../../../public/css/admin.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="../../../public/js/js-admin/accessories.js"></script>   
+</head>
+
+
+<body>
+<div class="container">
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="laptop-outline"></ion-icon>
+                    </span>
+                    <span class="title">ĐHH Laptop Admin </span>
+                </a>
+            </li>
+            <li>
+                <a href="../admin_main.html">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Tổng quan</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Khách hàng</span>
+                </a>
+            </li>
+            <li>
+                <a href="xoasua.html">
+                    <span class="icon">
+                        <ion-icon name="tv-outline"></ion-icon>
+                    </span>
+                    <span class="title">Quản Lí Laptop</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="headset-outline"></ion-icon>
+                    </span>
+                    <span class="title">Quản lí Phụ Kiện</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Cài đặt</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                    </span>
+                    <span class="title">Mật khẩu</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!---------------------- MAIN ------------------->
+    <div class="main">
+       
+        <div class="topbar">
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Tìm kiếm tại đây">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+        </div>
+        <div class="content">
+            <div class="product-list" id="productList">
+    <!-- Các card sản phẩm sẽ được thêm vào đây -->
+        </div>
+        
+        <form id="productForm">
+            <label for="productType">Chọn loại sản phẩm:</label>
+            <select id="productType">
+                <option value="headphone">Tai nghe</option>
+                <option value="keyboard">Bàn phím</option>
+                <option value="mouse">Chuột</option>
+            </select><br>
+            <label for="productId">Mã sản phẩm:</label>
+            <input type="text" id="productId" placeholder="Nhập mã sản phẩm" required><br>
+            <label for="description">Mô tả sản phẩm:</label>
+            <textarea id="description" placeholder="Nhập mô tả chi tiết" required></textarea><br>
+            <div id="dynamicFields">
+                <!-- Trường nhập liệu sẽ thay đổi ở đây -->
+            </div>
+        
+            <label for="image">Chọn ảnh sản phẩm:</label>
+            <input type="file" id="image" accept="image/*"><br>
+        
+            <label>Ảnh hiện tại:</label><br>
+            <input type="text" id="imageURL" placeholder="URL Ảnh" readonly><br>
+            <img id="productImage" src="" alt="Hình ảnh sản phẩm" style="max-width: 200px; display: none;"><br>
+        
+            <!-- Các nút xử lý -->
+            <button type="submit" id="saveButton">Lưu</button>
+            <button type="button" id="updateButton">Cập nhật</button>
+        </form>
+        
+         </div>
+    </div> 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productType = document.getElementById("productType");
+            const dynamicFields = document.getElementById("dynamicFields");
+        
+            function updateFormFields() {
+                const selectedType = productType.value;
+                dynamicFields.innerHTML = ""; // Xóa các trường trước đó
+        
+                let fields = "";
+        
+                if (selectedType === "headphone") {
+                    fields = `
+                        <input type="text" id="name" placeholder="Tên tai nghe" required><br>
+                        <input type="text" id="brand" placeholder="Hãng sản xuất" required><br>
+                        <input type="text" id="type" placeholder="Loại (In-ear, Over-ear, On-ear)" required><br>
+                        <select id="connection" required>
+                            <option value="">Chọn kết nối</option>
+                            <option value="wired">Có dây</option>
+                            <option value="wireless">Không dây</option>
+                            <option value="bluetooth">Bluetooth</option>
+                        </select><br>
+                        <input type="text" id="noiseCancelling" placeholder="Chống ồn (Có/Không)" required><br>
+                        <div id="batteryField" style="display: none;">
+                            <input type="text" id="battery" placeholder="Thời lượng pin (giờ)"><br>
+                        </div>
+                        <input type="number" id="price" placeholder="Giá (VND)" required><br>
+                    `;
+                } else if (selectedType === "keyboard") {
+                    fields = `
+                        <input type="text" id="name" placeholder="Tên bàn phím" required><br>
+                        <input type="text" id="brand" placeholder="Hãng sản xuất" required><br>
+                        <input type="text" id="switchType" placeholder="Loại switch (Blue, Red, Brown)" required><br>
+                        <input type="text" id="connection" placeholder="Kết nối (Wired/Wireless)" required><br>
+                        <input type="text" id="led" placeholder="LED RGB (Có/Không)" required><br>
+                        <input type="number" id="price" placeholder="Giá (VND)" required><br>
+                    `;
+                } else if (selectedType === "mouse") {
+                    fields = `
+                        <input type="text" id="name" placeholder="Tên chuột" required><br>
+                        <input type="text" id="brand" placeholder="Hãng sản xuất" required><br>
+                        <input type="text" id="dpi" placeholder="DPI (độ phân giải)" required><br>
+                        <input type="text" id="connection" placeholder="Kết nối (Wired/Wireless)" required><br>
+                        <input type="text" id="buttons" placeholder="Số nút bấm" required><br>
+                        <input type="number" id="price" placeholder="Giá (VND)" required><br>
+                    `;
+                }
+        
+                dynamicFields.innerHTML = fields;
+        
+                // Lắng nghe sự kiện thay đổi loại kết nối để hiển thị ô nhập pin
+                const connectionSelect = document.getElementById("connection");
+                const batteryField = document.getElementById("batteryField");
+        
+                if (connectionSelect) {
+                    connectionSelect.addEventListener("change", function() {
+                        if (connectionSelect.value === "wireless" || connectionSelect.value === "bluetooth") {
+                            batteryField.style.display = "block";
+                        } else {
+                            batteryField.style.display = "none";
+                        }
+                    });
+                }
+            }
+        
+            productType.addEventListener("change", updateFormFields);
+            updateFormFields(); // Khởi tạo form theo mặc định
+        });
+        </script>
+    
+</div>
+</body>
+</html> 

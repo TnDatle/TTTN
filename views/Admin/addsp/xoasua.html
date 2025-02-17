@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="../../../public/css/admin.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="../../../public/js/js-admin/xoasua.js"></script>   
+</head>
+
+
+<body>
+<div class="container">
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="laptop-outline"></ion-icon>
+                    </span>
+                    <span class="title">ĐHH Laptop Admin </span>
+                </a>
+            </li>
+            <li>
+                <a href="../admin_main.html">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Tổng quan</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Khách hàng</span>
+                </a>
+            </li>
+            <li>
+                <a href="xoasua.html">
+                    <span class="icon">
+                        <ion-icon name="tv-outline"></ion-icon>
+                    </span>
+                    <span class="title">Quản Lí Laptop</span>
+                </a>
+            </li>
+            <li>
+                <a href="../addsp/phukien.html">
+                    <span class="icon">
+                        <ion-icon name="headset-outline"></ion-icon>
+                    </span>
+                    <span class="title">Quản lí Phụ Kiện</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Cài đặt</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                    </span>
+                    <span class="title">Mật khẩu</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!---------------------- MAIN ------------------->
+    <div class="main">
+       
+        <div class="topbar">
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Tìm kiếm tại đây">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+        </div>
+        <div class="content">
+            <div class="product-list" id="productList">
+    <!-- Các card sản phẩm sẽ được thêm vào đây -->
+        </div>
+        
+            <form id="laptopForm">
+            <input type="text" id="productId" placeholder="Mã Laptop (Tự động hoặc nhập)" required><br>
+            <input type="text" id="name" placeholder="Tên Laptop" required><br>
+            <input type="text" id="brand" placeholder="Hãng (Asus, Dell, HP...)" required><br>
+            <input type="text" id="model" placeholder="Model" required><br>
+            <input type="text" id="cpu" placeholder="CPU" required><br>
+            <input type="text" id="ram" placeholder="RAM" required><br>
+            <input type="text" id="storage" placeholder="Bộ nhớ (SSD, HDD...)" required><br>
+            <input type="text" id="gpu" placeholder="GPU (Card đồ họa)" required><br>
+            <input type="text" id="screen" placeholder="Màn hình (inch, độ phân giải...)" required><br>
+            <input type="text" id="battery" placeholder="Pin (Wh, thời lượng...)" required><br>
+            <input type="text" id="os" placeholder="Hệ điều hành" required><br>
+            <input type="text" id="warranty" placeholder="Bảo hành (tháng)" required><br>
+            <textarea id="description" placeholder="Mô tả sản phẩm" required></textarea><br>
+            <input type="number" id="price" placeholder="Giá (VND)" required><br>
+            <input type="number" id="discount" placeholder="Giảm giá (%)"><br>
+            <input type="number" id="stock" placeholder="Số lượng tồn kho" required><br>
+            <input type="text" id="weight" placeholder="Trọng lượng (kg)" required><br>
+            <input type="text" id="ports" placeholder="Cổng kết nối (USB, HDMI...)" required><br>
+
+    <label for="category">Danh mục Laptop:</label>
+    <select id="category" required>
+        <option value="gaming">Gaming</option>
+        <option value="business">Doanh nhân</option>
+        <option value="student">Sinh viên</option>
+        <option value="ultrabook">Ultrabook</option>
+    </select><br>
+
+    <label for="image">Chọn ảnh sản phẩm:</label>
+    <input type="file" id="image" accept="image/*"><br>
+    
+    <label>Ảnh hiện tại:</label><br>
+    <input type="text" id="imageURL" placeholder="URL Ảnh" readonly><br>
+    <img id="productImage" src="" alt="Hình ảnh sản phẩm" style="max-width: 200px; display: none;"><br>
+
+    <!-- Các nút xử lý -->
+    <button type="submit" id="saveButton">Lưu Laptop</button>
+    <button type="button" id="updateButton">Cập nhật Laptop</button>
+    <button type="button" id="deleteButton">Xóa Laptop</button>
+        </form>
+         </div>
+    </div> 
+      
+    
+</div>
+</body>
+</html> 
