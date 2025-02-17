@@ -10,34 +10,16 @@
     <link rel="stylesheet" href="../home.html">
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-    <script src="/views/Cartegory/"></script>
     <script src="../../public/js/Checklogin.js"></script>
     <script src="../../public/js/Chatbot.js"></script>
     <script type="module" src="../../routes/Firebase-Config.js"></script>
-    <script type="module">
-        //import { displayCart } from '../../public/js/Cart.js';
-        // Sử dụng displayCart ở đây
-    </script>
-   
-    <script type="module">
-        import { displayProducts } from '../../routes/Product.js'; 
-        
-        window.onload = async function() {
-            // await addProducts(); // Uncomment để thêm sản phẩm mới
-            await displayProducts();
-        };
-    </script>
-    <script type="module">
-        import { displayProducts, viewProductDetail } from '../../routes/Product.js';
-        window.viewProductDetail = viewProductDetail; // Make it globally accessible
-        window.onload = displayProducts;
-    </script>
+    <script type="module" src="../../routes/Product.js"defer></script>
     <script type="module">
         import { displayProducts } from '../../routes/Product.js';
         
-        // Khi trang load sẽ hiển thị sản phẩm 
+        // Khi trang load sẽ hiển thị sản phẩm comic
         document.addEventListener('DOMContentLoaded', () => {
-        displayProducts('laptop',);
+        displayProducts('laptop', 'items');
     });
     </script>
 </head>
