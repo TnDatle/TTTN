@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script type="module" src="../../routes/Firebase-Config.js"></script>
+    <script type="module" src="../../public/js/Cart.js"></script>
     <script type="module">
         import { displayCart, updateQuantity, removeItem } from '../../public/js/Cart.js';
         window.updateQuantity = updateQuantity;
@@ -127,6 +128,7 @@
                     <button onclick="window.history.back()">TIẾP TỤC MUA SẢN PHẨM</button>
                     <button id="pay">THANH TOÁN</button>
                 </div>
+                <button onclick="clearCart()">Xóa toàn bộ giỏ hàng</button>
                 <div class="cart-content-right-dangnhap">
                     <p>TÀI KHOẢN BOOK HAVEN</p>
                     <p>Hãy <a href="/login-admin/login.html" style="color: #333;">Đăng nhập </a>tài khoản của bạn để nhận được thông báo</p>

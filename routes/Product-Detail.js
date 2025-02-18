@@ -107,7 +107,6 @@ function addToCartSilently() {
 function addToCart() {
     addToCartSilently();
 }
-
 // Load chi tiết sản phẩm khi trang được tải
 document.addEventListener('DOMContentLoaded', () => {
     loadProductDetail();
@@ -139,7 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/views/Cart/Cart.html';
         });
     }
+
 });
+
 
 // Đặt các hàm vào window object để có thể gọi từ HTML
 window.changeMainImage = changeMainImage;
@@ -147,6 +148,9 @@ window.increaseQuantity = increaseQuantity;
 window.decreaseQuantity = decreaseQuantity;
 window.buyNow = buyNow;
 window.addToCart = addToCart;
+
+
+
 
 
 // Xuất các hàm cần thiết nếu cần import từ file khác
