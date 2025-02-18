@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mecongnghe-DHH Store</title>
     <link rel="stylesheet" href="../../public/css/style.css">
-    <link rel="stylesheet" href="../css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../home.html">
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-    <script src="../../public/js/Checklogin.js"></script>
-    <script src="../../public/js/Chatbot.js"></script>
     <script type="module" src="../../routes/Firebase-Config.js"></script>
     <script type="module" src="../../routes/Product.js"defer></script>
     <script type="module">
@@ -22,13 +19,17 @@
         displayProducts('laptop', 'items');
     });
     </script>
+     <script type="module">
+        import { viewProductDetail } from '../../routes/Product.js';
+        window.viewProductDetail = viewProductDetail; // Make it globally accessible
+    </script>
 </head>
 <body>
     <section class="top">
         <div class="container">
             <div class="row">
                 <div class="top-logo">
-                    <a href="../home.html"><img src="/public/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
+                    <a href="../home.html"><img src="../../public/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
                 </div>
                 <div class="top-menu-items">
                     <ul>
@@ -65,8 +66,8 @@
                                 <button id="searchButton" class="fas fa-search"></button>
                             </div>
                         </li>
-                        <li><a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
-                        <li><a href="/views/Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
+                        <li><a href="../views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="../views/Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
                     </ul>
                 </div>
             </div>

@@ -6,14 +6,12 @@
     <title>mesach-bookhaven</title>
     <link rel="stylesheet" href="/public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/home.html">
+    <link rel="stylesheet" href="../home.html">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script type="module" src="/routes/Firebase-Config.js"></script>
-    <script type="module" src="/public/js/Cart.js"></script>
-    <script src="/public/js/Checklogin.js"></script>
+    <script type="module" src="../../routes/Firebase-Config.js"></script>
     <script type="module">
-        import { displayCart, updateQuantity, removeItem } from '/public/js/Cart.js';
+        import { displayCart, updateQuantity, removeItem } from '../../public/js/Cart.js';
         window.updateQuantity = updateQuantity;
         window.removeItem = removeItem;
     </script>
@@ -162,6 +160,5 @@
         </div>
     </div>
 </section>
-<script src="/js/function.js"></script>
 </body>
 </html>

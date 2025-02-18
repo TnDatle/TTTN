@@ -1,17 +1,5 @@
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDMKBDgcjZaFh2LDPs9ZuQzQFHMuZtnOPA",
-    authDomain: "store-music-fae02.firebaseapp.com",
-    databaseURL: "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "store-music-fae02",
-    storageBucket: "store-music-fae02.appspot.com",
-    messagingSenderId: "35440000355",
-    appId: "1:35440000355:web:7f49a002690331b9812756",
-    measurementId: "G-BQPH02HFGC"
-  };
-  
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+import { db } from './Firebase-Config.js'
+
   
   // Hàm hiển thị sản phẩm trên laptop.html
   async function displayProducts(categories, subCategories) {
@@ -48,18 +36,37 @@ const firebaseConfig = {
         console.error("Error getting products: ", error);
     }
 }
-async function uploadImageAndGetURL(imageFile, categories, subCategories, imageName) {
-    const storage = firebase.storage();
-    const storageRef = storage.ref(`image/${categories}/${subCategories}/${imageName}`);
-    
-    await storageRef.put(imageFile);
-    const downloadURL = await storageRef.getDownloadURL();
-    return downloadURL;
+
+  // Hàm xem chi tiết sản phẩm
+  function viewProductDetail(productId, categories, subCategories) {
+    window.location.href = `product-detail.html?id=${productId}&categories=${categories}&subCategories=${subCategories}`;
 }
 
-  
-  // Hàm xem chi tiết sản phẩm
-  function viewProductDetail(productId, collection, document, subCollection) {
-    
-  }
-  export{displayProducts,uploadImageAndGetURL,viewProductDetail};
+// Hàm lấy chi tiết sản phẩm
+async function getProductDetail(productId, categories, subCategories) {
+    try {
+        // Kiểm tra các tham số đầu vào
+        if (!productId || !categories || !subCategories) {
+            console.error('Missing parameters:', { productId, categories, subCategories });
+            return null;
+        }
+
+        const db = firebase.firestore();
+        const productDoc = await db.collection("products")
+                                 .doc(categories)
+                                 .collection(subCategories)
+                                 .doc(productId)
+                                 .get();
+
+        if (productDoc.exists) {
+            return { id: productDoc.id, ...productDoc.data() };
+        } else {
+            console.log("Không tìm thấy sản phẩm!");
+            return null;
+        }
+    } catch (error) {
+        console.error("Error getting product detail: ", error);
+        return null;
+    }
+}
+  export{displayProducts,viewProductDetail,getProductDetail};
