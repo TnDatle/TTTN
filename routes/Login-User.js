@@ -5,14 +5,14 @@ import { getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-fires
 
 // Firebase initialization
 const app = initializeApp({
-    apiKey: "AIzaSyBzjS1Zf-rh1txM7KtoiGm5LkdDaWzTh-U",
-    authDomain: "store-music-fae02.firebaseapp.com",
-    databaseURL: "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "store-music-fae02",
-    storageBucket: "store-music-fae02.appspot.com",
-    messagingSenderId: "35440000355",
-    appId: "1:35440000355:web:8a266ed1a96e7c2f812756",
-    measurementId: "G-4MEMTBYYMT"
+  apiKey: "AIzaSyDMKBDgcjZaFh2LDPs9ZuQzQFHMuZtnOPA",
+  authDomain: "store-music-fae02.firebaseapp.com",
+  databaseURL:"https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "store-music-fae02",
+  storageBucket: "store-music-fae02.appspot.com",
+  messagingSenderId: "35440000355",
+  appId: "1:35440000355:web:7f49a002690331b9812756",
+  measurementId: "G-BQPH02HFGC",
 });
 
 const auth = getAuth(app); // Firebase Authentication
@@ -133,7 +133,7 @@ async function loginWithGoogle() {
             localStorage.setItem('userEmail', user.email);
 
             alert("Đăng nhập thành công!");
-            window.location.href = "../views/home.html"; // Chuyển hướng tới trang chủ
+            window.location.href = "../home.html"; // Chuyển hướng tới trang chủ
         } else {
             alert("Tài khoản chưa được đăng ký. Vui lòng đăng ký trước khi đăng nhập.");
             await auth.signOut(); // Đăng xuất khỏi Google
