@@ -146,7 +146,7 @@ function proceedToCheckout() {
         alert('Giỏ hàng của bạn đang trống!');
         return;
     }
-    window.location.href = '/html-delivery/delivery.html';
+    window.location.href = '../../views/Delivery/Delivery.html';
 }
 
 // Khởi tạo khi trang được load

@@ -73,113 +73,12 @@
                 <div class="delivery-top-delivery delivery-top-item">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <div class="delivery-top-adress delivery-top-item">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
                 <div class="delivery-top-payment delivery-top-item">
-                    <i class="fas fa-money-check-alt"></i>
+                    <i class="fas fa-money-check-alt" style="color:#0DB7EA;"></i>
                 </div>
             </div>
         </div>
-    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.91080795677692!2d106.657073959755!3d10.843958549216264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175293f5ade936f%3A0x7a1919abad4c52e4!2sShop%20B%C3%A8o%20B%C3%A9o%20Bigsize!5e0!3m2!1svi!2s!4v1730876408653!5m2!1svi!2s" width="1200" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div class="container">
-        <div class="delivery-content row">
-            <div class="delivery-content-left">
-                <p>Vui lòng chọn địa chỉ giao hàng <span style="color: red;">*</span></p>
-                <p>Qua Fanpage <a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank">Book Haven Store</a> của shop để đặt hàng</p>
-                <div class="delivery-content-left-input-top row">
-                    <div class="delivery-content-left-input-top-item">
-                        <label for="fullName">Họ tên <span style="color: red;">*</span></label>
-                        <input type="text" id="fullName" name="fullName" required>
-                    </div>
-                    <div class="delivery-content-left-input-top-item">
-                        <label for="phone">Điện thoại <span style="color: red;">*</span></label>
-                        <input type="text" id="phone" name="phone" required>
-                    </div>  
-                    <div class="delivery-content-left-input-top-item">
-                        <label for="provinceDropdown">Tỉnh/tp <span style="color: red;">*</span></label>
-                        <select id="provinceDropdown" class="select" required>
-                            <option value="">TP Hồ Chí Minh</option>
-                        </select>
-                    </div>
-                    <div class="delivery-content-left-input-top-item">
-                        <label for="districtDropdown">Quận/huyện <span style="color: red;">*</span></label>
-                        <select id="districtDropdown" class="select" required>
-                            <option value="">--Chọn quận/huyện--</option>
-                            <option value="Quận 1">Quận 1</option>
-                            <option value="Quận 2">Quận 2</option>
-                            <option value="Quận 3">Quận 3</option>
-                            <option value="Quận 4">Quận 4</option>
-                            <option value="Quận 5">Quận 5</option>
-                            <option value="Quận 6">Quận 6</option>
-                            <option value="Quận 7">Quận 7</option>
-                            <option value="Quận 8">Quận 8</option>
-                            <option value="Quận 9">Quận 9</option>
-                            <option value="Quận 10">Quận 10</option>
-                            <option value="Quận 11">Quận 11</option>
-                            <option value="Quận 12">Quận 12</option>
-                            <option value="Quận Bình Thạnh">Quận Bình Thạnh</option>
-                            <option value="Quận Gò Vấp">Quận Gò Vấp</option>
-                            <option value="Quận Tân Phú">Quận Tân Phú</option>
-                            <option value="Quận Tân Bình">Quận Tân Bình</option>
-                            <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
-                            <option value="Quận Bình Tân">Quận Bình Tân</option>
-                            <option value="Quận Thủ Đức">Quận Thủ Đức</option>
-                            <option value="Huyện Bình Chánh">Huyện Bình Chánh</option>
-                            <option value="Huyện Hóc Môn">Huyện Hóc Môn</option>
-                            <option value="Huyện Củ Chi">Huyện Củ Chi</option>
-                            <option value="Huyện Cần Giờ">Huyện Cần Giờ</option>
-                            <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
-                        </select>
-                    </div>
-                    <div class="delivery-content-left-input-top-item">
-                        <label for="wardInput">Phường/Xã/Thị trấn<span style="color: red;">*</span></label>
-                        <input type="text" id="wardInput" name="wardInput" required>
-                    </div> 
-                    <div class="delivery-content-left-input-top-item">
-                        <label for="addressInput">Địa chỉ <span style="color: red;">*</span></label>
-                        <input type="text" id="addressInput" name="addressInput" required>
-                    </div>                                                                                           
-                    <div class="delivery-content-left-button row">
-                        <button style="align-items: center;"><span>&#171;</span><p style="font-weight: bold;"><a href="/html-cart/cart.html">QUAY LẠI GIỎ HÀNG</a></p></button>
-                        <button onclick="submitOrder(event)"><p style="font-weight: bold;">THANH TOÁN VÀ GIAO HÀNG</p></button>
-                    </div>
-                    <div class="" style="display: flex; align-items: center; float: left; margin-top: 0; margin-bottom: 0; padding-top:10px">
-                        <input type="radio" id="payment" name="payment" checked disabled>
-                        <label for="payment" style="margin: 0;padding-left:5px">Thanh toán khi nhận hàng</label>
-                    </div>
-                </div>                                
-            </div>       
-                <div class="delivery-content-right">
-                    <table id="cart-table">
-                        <tr>
-                            <th>Tên sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                        </tr>
-                        <tr>
-                            <td id="total-quantity"></td>
-                            <td id="total-price"></td>
-                            <td id="subtotal-price"><p>... <sup>đ</sup></p></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold;" colspan="3">Tổng</td>
-                            <td id="subtotal-price" style="font-weight: bold;"><p>0 <sup>đ</sup></p></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold;" id="shipping-fee" colspan="3">Phí ship</td>
-                            <td style="font-weight: bold;"><p id="shipping-fee-value">0 <sup>đ</sup></p></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold;" colspan="3">Tổng tiền hàng</td>
-                            <td id="total-amount" style="font-weight: bold;"><p>0 <sup>đ</sup></p></td>
-                        </tr>
-                    </table> 
-                </div>
-        </div>
-    </div>
-</section>
+    
 
 <!-------------------- footer --------------------->
 <section class="footer">
