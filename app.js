@@ -1,6 +1,12 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const url = require('url'); // Thêm module url để phân tích query string
+const express = require('express');
+const app = express();
+
+// Cấu hình để phục vụ file tĩnh từ thư mục 'views'
+app.use(express.static(path.join(__dirname, 'views')));
 
 // Hàm phục vụ file tĩnh
 function serveStaticFile(filePath, res) {
@@ -34,19 +40,31 @@ function serveStaticFile(filePath, res) {
 
 // Tạo server
 const server = http.createServer((req, res) => {
+    const parsedUrl = url.parse(req.url, true); // Phân tích URL
+    const pathname = parsedUrl.pathname;
+    const query = parsedUrl.query;
+
     let filePath = '';
 
-    // Kiểm tra route
-    if (req.url === '/') {
+    if (pathname === '/') {
         filePath = path.join(__dirname, 'views', 'home.html');
-    } else if (req.url === '/admin') {
-        filePath = path.join(__dirname, 'views', 'Admin', 'admin_main.html'); // Thêm route admin
-    } else if (req.url.startsWith('/public/')) {
-        filePath = path.join(__dirname, req.url);
-    } else if (req.url.startsWith('/routes/')) {
-        filePath = path.join(__dirname, req.url);
-    } else if (req.url.startsWith('/views/')) { 
-        filePath = path.join(__dirname, req.url);
+    } else if (pathname === '/admin') {
+        filePath = path.join(__dirname, 'views', 'Admin', 'admin_main.html');
+    } else if (pathname.startsWith('/public/')) {
+        filePath = path.join(__dirname, pathname);
+    } else if (pathname.startsWith('/routes/')) {
+        filePath = path.join(__dirname, pathname);
+    } else if (pathname.startsWith('/views/')) {
+        filePath = path.join(__dirname, pathname);
+    } else if (pathname === '/product-detail') {
+        if (query.id) {
+            console.log(`🔍 Đang lấy thông tin sản phẩm với ID: ${query.id}`);
+            filePath = path.join(__dirname, 'views', 'Category', 'product-detail.html');
+        } else {
+            res.writeHead(400, { 'Content-Type': 'text/html' });
+            res.end('<h1>400 Bad Request: Thiếu ID sản phẩm</h1>');
+            return;
+        }
     } else {
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.end('<h1>404 Not Found</h1>');
@@ -60,5 +78,5 @@ const server = http.createServer((req, res) => {
 // Lắng nghe trên cổng
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server đang chạy tại http://localhost:${PORT}`);
+    console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
 });

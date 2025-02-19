@@ -39,7 +39,7 @@ import { db } from './Firebase-Config.js'
 
   // Hàm xem chi tiết sản phẩm
   function viewProductDetail(productId, categories, subCategories) {
-    window.location.href = `././product-detail.html?id=${productId}&categories=${categories}&subCategories=${subCategories}`;
+    window.location.href = `../Category/product-detail.html?id=${productId}&categories=${categories}&subCategories=${subCategories}`;
 }
 
 // Hàm lấy chi tiết sản phẩm

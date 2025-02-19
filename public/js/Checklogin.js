@@ -59,10 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
                             // Nếu người dùng đồng ý, xóa session và đăng xuất
                             localStorage.removeItem("isLoggedIn");
                             localStorage.removeItem("userEmail");
-                            alert("Bạn đã đăng xuất.");
+                            alert("Bạn đã đăng xuất thành công!");
                             userMenu.remove(); // Xóa menu
                             updateUserInterface(); // Cập nhật lại giao diện
-                            window.location.href = "/home.html"; // Chuyển hướng về trang chủ
+                            window.location.href = "../../views/home.html"; // Chuyển hướng về trang chủ
                         }
                     });
                 }
