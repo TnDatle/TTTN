@@ -55,7 +55,7 @@ a {
 }
 
 .top-logo img {
-    width: 80%;
+    width: 30%;
 }
 
 .top-menu-items {
@@ -79,7 +79,15 @@ a {
 .top-menu-items >ul {
     height: 100%;
     display: flex;
+    padding: 1px;
+    justify-content: space-evenly;
 }
+
+.top-menu-items ul li:hover {
+    color: #a7cf16;
+    transition: all 0.2s ease;
+}
+
 
 .top-menu-items > ul > li {
     font-family: var(--main-text-font);
@@ -425,4 +433,46 @@ a {
 .product-specs td {
     border: 1px solid #ddd;
     padding: 10px;
+}
+.search-bar {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#searchInput {
+    width: 150px;
+    padding: 5px 0 7px 10px;
+    border-bottom: 1px solid #111111;
+    border-top: 1px solid #111111;
+    border-left: 1px solid #111111;
+    border-right: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    font-size: 15px;
+    background-color: white;
+}
+
+#searchButton {
+    border-top: 1px solid #111111;
+    border-bottom: 1px solid #111111;
+    border-right: 1px solid #111111;
+    border-left: none;
+    padding: 2px 5px;
+    background-color: white;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#searchButton:hover {
+    transition: all 0.3s ease;
+    color: #a7cf16;
+    background-color: #111111;
+    box-shadow: 0 0 10px #111111;
+}
+
+#searchInput:focus {
+    border-color: #111111;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
