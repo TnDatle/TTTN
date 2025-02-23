@@ -1,16 +1,21 @@
-import { db } from './Firebase-Config.js'
+import { db } from './Firebase-Config.js';
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"; 
 
-  
-  // Hàm hiển thị sản phẩm trên laptop.html
-  async function displayProducts(categories, subCategories) {
+// 🛒 Hiển thị danh sách sản phẩm
+async function displayProducts(category) {
     try {
-        const db = firebase.firestore();
-        const productsRef = db.collection("products").doc(categories).collection(subCategories);
-        const snapshot = await productsRef.get();
+        if (!db) {
+            console.error("❌ Firestore chưa được khởi tạo.");
+            return;
+        }
 
-        const container = document.querySelector('.cartegory-right-content');
+        const productsRef = collection(db, "products", "laptop", "items");
+        const q = query(productsRef, where("category", "==", category));
+        const snapshot = await getDocs(q);
+
+        const container = document.querySelector('.product-list'); 
         if (!container) {
-            console.error("Container element not found");
+            console.error("❌ Container element không tìm thấy.");
             return;
         }
         container.innerHTML = '';
@@ -23,50 +28,46 @@ import { db } from './Firebase-Config.js'
                 ? product.price.toLocaleString('vi-VN')
                 : 'Giá không xác định';
 
+            const rating = product.rating ? product.rating.toFixed(1) : '0.0';
+            const reviewCount = product.reviewCount || 0;
+
+            // 🏷 Hiển thị sản phẩm
             const productHTML = `
-                <div class="cartegory-right-content-item" onclick="viewProductDetail('${productId}', '${categories}', '${subCategories}')">
-                    <img src="${product.imageURL}" alt="${product.name}">
-                    <h1>${product.name}</h1>
-                    <p>${priceFormatted}<sup>đ</sup></p>
+                <div class="product-card" data-id="${productId}">
+                    <div class="product-image">
+                        <img src="${product.imageURLs?.[0] || 'default.jpg'}" alt="${product.name}">
+                    </div>
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-pricing">
+                        <span class="new-price">${priceFormatted}<sup>đ</sup></span>
+                    </div>
+                    <div class="product-rating">
+                        ⭐ ${rating} <span>(${reviewCount} đánh giá)</span>
+                    </div>
                 </div>
             `;
             container.innerHTML += productHTML;
         });
+
+        // 🖱 Xử lý sự kiện click vào từng sản phẩm
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function () {
+                const productId = this.getAttribute('data-id');
+                viewProductDetail(productId, "laptop", "items");
+            });
+        });
+
     } catch (error) {
-        console.error("Error getting products: ", error);
+        console.error("❌ Lỗi khi lấy sản phẩm từ Firestore: ", error);
     }
 }
 
-  // Hàm xem chi tiết sản phẩm
-  function viewProductDetail(productId, categories, subCategories) {
-    window.location.href = `../Category/product-detail.html?id=${productId}&categories=${categories}&subCategories=${subCategories}`;
+// 🔎 Chuyển hướng đến trang chi tiết sản phẩm
+function viewProductDetail(productId, category, subCategory) {
+    window.location.href = `product-detail.html?id=${productId}&categories=${category}&subCategories=${subCategory}`;
 }
 
-// Hàm lấy chi tiết sản phẩm
-async function getProductDetail(productId, categories, subCategories) {
-    try {
-        // Kiểm tra các tham số đầu vào
-        if (!productId || !categories || !subCategories) {
-            console.error('Missing parameters:', { productId, categories, subCategories });
-            return null;
-        }
+// Gán hàm vào `window`
+window.viewProductDetail = viewProductDetail;
 
-        const db = firebase.firestore();
-        const productDoc = await db.collection("products")
-                                 .doc(categories)
-                                 .collection(subCategories)
-                                 .doc(productId)
-                                 .get();
-
-        if (productDoc.exists) {
-            return { id: productDoc.id, ...productDoc.data() };
-        } else {
-            console.log("Không tìm thấy sản phẩm!");
-            return null;
-        }
-    } catch (error) {
-        console.error("Error getting product detail: ", error);
-        return null;
-    }
-}
-  export{displayProducts,viewProductDetail,getProductDetail};
+export { displayProducts };

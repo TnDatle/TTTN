@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết sản phẩm</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+    
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
-    <script type="module" src="../../routes/Product.js"></script>
-    <script type="module">
-        import { viewProductDetail } from '../../routes/Product.js';
-        window.viewProductDetail = viewProductDetail;
-    </script>
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="../../public/css/product-detail.css">
+    
+    <!-- JavaScript -->
+    <script type="module" src="../../routes/Product-Detail.js"></script>
+    <script type="module">
+        import { loadProductDetail, increaseQuantity, decreaseQuantity, buyNow, addToCart } from '../../routes/Product-Detail.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductDetail();
+        });
+    </script>
 </head>
 <body>
+    <!-- Header -->
     <section class="top">
         <div class="container">
             <div class="row">
                 <div class="top-logo">
-                    <a href="../home.html"><img src="../../public/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
+                    <a href="../home.html">
+                        <img src="../../public/img/logo.png" alt="Logo">
+                    </a>
                 </div>
                 <div class="top-menu-items">
                     <ul>
@@ -30,7 +43,7 @@
                             <h4>Laptop</h4>
                             <ul class="top-menu-item">
                                 <li><a href="/views/Category/Gaming.html">Laptop Gaming</a></li>
-                                <li><a href="/views/Category/Laptop.html">laptop Văn Phòng</a></li>
+                                <li><a href="/views/Category/Laptop.html">Laptop Văn Phòng</a></li>
                                 <li><a href="/views/Category/Workstation.html">Workstation Laptop</a></li>
                             </ul>
                         </li>
@@ -59,47 +72,62 @@
                             </div>
                         </li>
                         <li><a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
-                        <li><a href="/views/Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
+                        <li>
+                            <a href="/views/Cart/Cart.html">
+                                <i id="cart-icon" class="fas fa-shopping-cart"></i>
+                            </a>
+                            <span id="cart-count">0</span>
+                        </li>                    
                     </ul>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Chi tiết sản phẩm -->
     <div class="product-detail-container">
         <div class="product-image">
-            <img id="product-image" src="" alt="Product Image">
+            <div class="image-container">
+                <button class="prev-btn" onclick="prevImage()">&#10094;</button>
+                <img id="product-image" src="default.jpg" alt="Product Image">
+                <button class="next-btn" onclick="nextImage()">&#10095;</button>
+            </div>
+            <div id="thumbnail-container" class="thumbnail-container"></div>
         </div>
         <div class="product-info">
             <h1 id="product-name"></h1>
             <p class="price" id="product-price"></p>
             <p class="description" id="product-description"></p>
             <div class="quantity">
-                <label>Số lượng:</label>
+                <label for="quantity">Số lượng:</label>
                 <input type="number" id="quantity" value="1" min="1">
             </div>
             <div class="buttons">
-                <button class="buy-now" onclick="buyNow()">Mua ngay</button>
-                <button class="add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
+                <button class="buy-now" id="buy-now">Mua ngay</button>
+                <button class="add-to-cart" id="add-to-cart">Thêm vào giỏ hàng</button>
             </div>
         </div>
     </div>
+
+    <!-- Thông số kỹ thuật -->
     <div class="product-specs">
         <h2>Thông số kỹ thuật</h2>
         <table>
-            <tr>
-                <td>CPU</td>
-                <td>Intel Core i7</td>
-            </tr>
-            <tr>
-                <td>RAM</td>
-                <td>16GB</td>
-            </tr>
-            <tr>
-                <td>Ổ cứng</td>
-                <td>512GB SSD</td>
-            </tr>
+            <tr><td>CPU</td><td id="product-cpu"></td></tr>
+            <tr><td>RAM</td><td id="product-ram"></td></tr>
+            <tr><td>Ổ cứng</td><td id="product-storage"></td></tr>
+            <tr><td>Màn hình</td><td id="product-screen"></td></tr>
+            <tr><td>Card đồ họa</td><td id="product-gpu"></td></tr>
+            <tr><td>Pin</td><td id="product-battery"></td></tr>
+            <tr><td>Hệ điều hành</td><td id="product-os"></td></tr>
+            <tr><td>Cổng kết nối</td><td id="product-ports"></td></tr>
+            <tr><td>Bảo hành</td><td id="product-warranty"></td></tr>
+            <tr><td>Trọng lượng</td><td id="product-weight"></td></tr>
         </table>
     </div>
+
+
+    <!-- Đánh giá sản phẩm -->
     <div class="product-rating">
         <div class="rating-stars">
             <i class="far fa-star" data-rating="1"></i>
@@ -123,12 +151,7 @@
             </div>
         </div>
     </div>
-    <script type="module" src="../../routes/Product-Detail.js"></script>
-    <script type="module">
-        import { loadProductDetail, increaseQuantity, decreaseQuantity, buyNow, addToCart } from '../../routes/Product-Detail.js';
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProductDetail();
-        });
-    </script>
+
+    
 </body>
 </html>

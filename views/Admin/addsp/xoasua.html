@@ -98,7 +98,7 @@
     <!-- Các card sản phẩm sẽ được thêm vào đây -->
         </div>
         
-            <form id="laptopForm">
+        <form id="laptopForm">
             <input type="text" id="productId" placeholder="Mã Laptop (Tự động hoặc nhập)" required><br>
             <input type="text" id="name" placeholder="Tên Laptop" required><br>
             <input type="text" id="brand" placeholder="Hãng (Asus, Dell, HP...)" required><br>
@@ -115,32 +115,60 @@
             <input type="number" id="price" placeholder="Giá (VND)" required><br>
             <input type="number" id="discount" placeholder="Giảm giá (%)"><br>
             <input type="number" id="stock" placeholder="Số lượng tồn kho" required><br>
+            
+            <!-- Thêm trường "Đã bán" và "Đánh giá" -->
+            <input type="number" id="sold" placeholder="Số lượng đã bán" required><br>
+            <input type="number" id="rating" placeholder="Đánh giá trung bình (1-5)" min="1" max="5" step="0.1" required><br>
+        
             <input type="text" id="weight" placeholder="Trọng lượng (kg)" required><br>
             <input type="text" id="ports" placeholder="Cổng kết nối (USB, HDMI...)" required><br>
-
-    <label for="category">Danh mục Laptop:</label>
-    <select id="category" required>
-        <option value="gaming">Gaming</option>
-        <option value="business">Doanh nhân</option>
-        <option value="student">Sinh viên</option>
-        <option value="ultrabook">Ultrabook</option>
-    </select><br>
-
-    <label for="image">Chọn ảnh sản phẩm:</label>
-    <input type="file" id="image" accept="image/*"><br>
-    
-    <label>Ảnh hiện tại:</label><br>
-    <input type="text" id="imageURL" placeholder="URL Ảnh" readonly><br>
-    <img id="productImage" src="" alt="Hình ảnh sản phẩm" style="max-width: 200px; display: none;"><br>
-
-    <!-- Các nút xử lý -->
-    <button type="submit" id="saveButton">Lưu Laptop</button>
-    <button type="button" id="updateButton">Cập nhật Laptop</button>
-    <button type="button" id="deleteButton">Xóa Laptop</button>
+        
+            <label for="category">Danh mục Laptop:</label>
+            <select id="category" required>
+                <option value="gaming">Gaming</option>
+                <option value="office">Văn Phòng</option>
+                <option value="workstation">WordStation</option>
+            </select><br>
+        
+            <!-- Tải lên nhiều ảnh -->
+            <label for="image">Chọn ảnh sản phẩm (có thể chọn nhiều ảnh):</label>
+            <input type="file" id="image" accept="image/*" multiple><br>
+        
+            <!-- Xem trước ảnh trước khi tải lên -->
+            <label>Ảnh mới tải lên:</label>
+            <div id="previewNewImages" style="display: flex; gap: 10px; flex-wrap: wrap;"></div><br>
+        
+            <!-- Hiển thị danh sách ảnh đã lưu -->
+            <label>Ảnh đã lưu:</label>
+            <div id="previewImages" style="display: flex; gap: 10px; flex-wrap: wrap;"></div><br>
+        
+            <!-- Các nút xử lý -->
+            <button type="submit" id="saveButton">Lưu Laptop</button>
+            <button type="button" id="updateButton">Cập nhật Laptop</button>
+            <button type="button" id="deleteButton">Xóa Laptop</button>
         </form>
          </div>
     </div> 
-      
+    <script>
+        document.getElementById("image").addEventListener("change", function () {
+            const previewContainer = document.getElementById("previewNewImages");
+            previewContainer.innerHTML = "";
+    
+            for (const file of this.files) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.style.maxWidth = "100px";
+                    img.style.border = "1px solid #ddd";
+                    img.style.borderRadius = "4px";
+                    img.style.margin = "5px";
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
     
 </div>
 </body>

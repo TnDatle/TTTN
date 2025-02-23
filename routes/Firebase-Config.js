@@ -1,3 +1,7 @@
+// Firebase-Config.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDMKBDgcjZaFh2LDPs9ZuQzQFHMuZtnOPA",
   authDomain: "store-music-fae02.firebaseapp.com",
@@ -10,8 +14,8 @@ const firebaseConfig = {
   measurementId: "G-BQPH02HFGC",
 };
 
-firebase.initializeApp(firebaseConfig);
+// Khởi tạo Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// Lấy reference đến Firestore
-const db = firebase.firestore();
 export { db };

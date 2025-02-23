@@ -14,14 +14,9 @@
     <script type="module">
         import { displayProducts } from '../../routes/Product.js';
         
-        // Khi trang load sẽ hiển thị sản phẩm comic
         document.addEventListener('DOMContentLoaded', () => {
-        displayProducts('laptop', 'items');
-    });
-    </script>
-     <script type="module">
-        import { viewProductDetail } from '../../routes/Product.js';
-        window.viewProductDetail = viewProductDetail; 
+            displayProducts('office'); // Lấy danh mục gaming
+        });
     </script>
 </head>
 <body>
@@ -29,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="top-logo">
-                    <a href="../home.html"><img src="../../public/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
+                    <a href="../home.html"><img src="../../public/img/logo.png" alt=""></a>
                 </div>
                 <div class="top-menu-items">
                     <ul>
@@ -160,84 +155,7 @@
                         <option value="radeon">Radeon Graphics</option>
                     </select>
                 </div>                    
-                <div class="cartegory-right-content row">
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                </div>
-            </div>
+                <div class="product-list"></div> <!-- Sản phẩm sẽ được hiển thị tại đây -->
         </div>
     </div>
     <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">
