@@ -56,6 +56,7 @@ a {
 
 .top-logo img {
     width: 30%;
+    width: 30%;
 }
 
 .top-menu-items {
@@ -79,7 +80,15 @@ a {
 .top-menu-items >ul {
     height: 100%;
     display: flex;
+    padding: 1px;
+    justify-content: space-evenly;
 }
+
+.top-menu-items ul li:hover {
+    color: #a7cf16;
+    transition: all 0.2s ease;
+}
+
 
 .top-menu-items > ul > li {
     font-family: var(--main-text-font);
