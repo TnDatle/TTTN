@@ -1,41 +1,75 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const userIcon = document.querySelector(".fa-user");
-    const userLink = userIcon.closest("a"); // Tham chiếu đến thẻ <a> bọc icon
-    const topMenuIcons = document.querySelector(".top-menu-icons");
-    const cartIcon = document.querySelector(".fa-shopping-cart"); // Chọn biểu tượng giỏ hàng
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-    // Kiểm tra trạng thái đăng nhập
-    function checkSession() {
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-        const userEmail = localStorage.getItem("userEmail");
-        const passwordChanged = localStorage.getItem("passwordChanged") === "true";
-        return { isLoggedIn, userEmail, passwordChanged };
+document.addEventListener("DOMContentLoaded", async () => {
+    const topMenuIcons = document.querySelector(".top-menu-icons ul"); 
+    if (!topMenuIcons) return console.error("Không tìm thấy phần tử .top-menu-icons!");
+
+    // Cấu hình Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyDMKBDgcjZaFh2LDPs9ZuQzQFHMuZtnOPA",
+        authDomain: "store-music-fae02.firebaseapp.com",
+        databaseURL: "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "store-music-fae02",
+        storageBucket: "store-music-fae02.appspot.com",
+        messagingSenderId: "35440000355",
+        appId: "1:35440000355:web:7f49a002690331b9812756",
+        measurementId: "G-BQPH02HFGC",
+    };
+
+    // Khởi tạo Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Hàm kiểm tra trạng thái đăng nhập và theo dõi thay đổi fullName
+    function checkSessionAndListen() {
+        return new Promise((resolve) => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const emailKey = user.email.replace(/\./g, "_"); 
+                    const userRef = doc(db, "user", emailKey);
+
+                    // Lắng nghe thay đổi dữ liệu trong Firestore
+                    onSnapshot(userRef, (docSnap) => {
+                        if (docSnap.exists() && docSnap.data().fullName) {
+                            const fullName = docSnap.data().fullName;
+                            localStorage.setItem("fullName", fullName);
+                            resolve({ isLoggedIn: true, fullName });
+                            updateUserInterface(fullName); // Cập nhật giao diện ngay khi fullName thay đổi
+                        } else {
+                            resolve({ isLoggedIn: true, fullName: "Bạn chưa cập nhật thông tin" });
+                        }
+                    }, (error) => {
+                        console.error("Lỗi khi lắng nghe dữ liệu Firestore:", error);
+                        resolve({ isLoggedIn: false });
+                    });
+                } else {
+                    localStorage.removeItem("fullName");
+                    resolve({ isLoggedIn: false });
+                }
+            });
+        });
     }
 
-    // Cập nhật giao diện
-    function updateUserInterface() {
-        const { isLoggedIn, userEmail, passwordChanged } = checkSession();
+    // Cập nhật giao diện user
+    async function updateUserInterface(fullName = "Tài khoản") {
+        const loginLi = topMenuIcons.querySelector("li:nth-child(2)");
 
-        if (passwordChanged) {
-            // Nếu mật khẩu đã đổi, tự động đăng xuất
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userEmail");
-            localStorage.removeItem("passwordChanged");
-            alert("Bạn cần đăng nhập lại sau khi đổi mật khẩu.");
-            window.location.href = "../views/Login/Login.html"; // Chuyển hướng đến trang đăng nhập
+        if (!loginLi) {
+            console.error("Không tìm thấy phần tử đăng nhập!");
             return;
         }
 
-        if (isLoggedIn && userEmail) {
-            userLink.href = "#"; // Ngăn điều hướng khi đã đăng nhập
-            userIcon.classList.add("fa-solid");
-            userIcon.classList.remove("fa-regular");
+        if (fullName) {
+            loginLi.innerHTML = `<span class="user-name">${fullName}</span>`;
 
-            // Tạo menu khi bấm vào biểu tượng
-            userIcon.addEventListener("click", (e) => {
+            // Xử lý click mở menu
+            loginLi.addEventListener("click", (e) => {
                 e.preventDefault();
-
-                // Kiểm tra menu có tồn tại không
+    
                 let userMenu = document.querySelector("#user-menu");
                 if (!userMenu) {
                     userMenu = document.createElement("div");
@@ -49,61 +83,44 @@ document.addEventListener("DOMContentLoaded", () => {
                             <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                         </ul>
                     `;
-                    topMenuIcons.appendChild(userMenu);
-
+                    document.body.appendChild(userMenu);
+    
                     // Xử lý đăng xuất
-                    document.querySelector("#logout-btn").addEventListener("click", () => {
-                        // Hiển thị hộp thoại xác nhận
-                        const confirmLogout = window.confirm("Bạn chắc chắn muốn đăng xuất?");
-                        if (confirmLogout) {
-                            // Nếu người dùng đồng ý, xóa session và đăng xuất
-                            localStorage.removeItem("isLoggedIn");
-                            localStorage.removeItem("userEmail");
+                    document.querySelector("#logout-btn").addEventListener("click", async () => {
+                        if (confirm("Bạn chắc chắn muốn đăng xuất?")) {
+                            await signOut(auth);
                             alert("Bạn đã đăng xuất thành công!");
-                            userMenu.remove(); // Xóa menu
-                            updateUserInterface(); // Cập nhật lại giao diện
-                            window.location.href = "../../views/home.html"; // Chuyển hướng về trang chủ
+                            userMenu.remove();
+                            updateUserInterface();
+                            window.location.href = "../../views/home.html";
                         }
                     });
                 }
-                
-                // Hiển thị menu (ẩn nếu đang hiển thị)
+
                 userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
 
-                // Sự kiện ẩn menu khi click bên ngoài
+                // Đóng menu khi click ra ngoài
                 document.addEventListener("click", (event) => {
-                    if (!userMenu.contains(event.target) && !userIcon.contains(event.target)) {
+                    if (!userMenu.contains(event.target) && !loginLi.contains(event.target)) {
                         userMenu.style.display = "none";
                     }
-                }, { once: true }); // Chỉ chạy 1 lần
+                }, { once: true });
             });
         } else {
-            userLink.href = "../views/Login/Login.html"; // Điều hướng đến trang đăng nhập
-            userIcon.classList.add("fa-regular");
-            userIcon.classList.remove("fa-solid");
-
-            // Xóa menu nếu tồn tại
-            const userMenu = document.querySelector("#user-menu");
-            if (userMenu) userMenu.remove();
+            // Nếu chưa đăng nhập, hiển thị icon user như cũ
+            loginLi.innerHTML = `<a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a>`;
         }
     }
 
-    // Xử lý sự kiện cho giỏ hàng
+    // Xử lý giỏ hàng
+    const cartIcon = document.querySelector(".fa-shopping-cart");
     if (cartIcon) {
-        cartIcon.addEventListener("click", (e) => {
+        cartIcon.addEventListener("click", async (e) => {
             e.preventDefault();
-
-            const { isLoggedIn } = checkSession();
-
-            if (isLoggedIn) {
-                // Nếu đã đăng nhập, chuyển đến trang giỏ hàng
-                window.location.href = "../views/Cart/Cart.html";
-            } else {
-                // Nếu chưa đăng nhập, chuyển đến trang đăng nhập
-                window.location.href = "../views/Login/Login.html";
-            }
+            const { isLoggedIn } = await checkSessionAndListen();
+            window.location.href = isLoggedIn ? "../views/Cart/Cart.html" : "../views/Login/Login.html";
         });
     }
 
-    updateUserInterface();
+    checkSessionAndListen(); // Kiểm tra đăng nhập và lắng nghe thay đổi real-time
 });
