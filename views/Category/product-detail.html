@@ -4,27 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết sản phẩm</title>
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
-    
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
-    
-    <!-- CSS -->
     <link rel="stylesheet" href="../../public/css/product-detail.css">
-    
-    <!-- JavaScript -->
     <script type="module" src="../../routes/Product-Detail.js"></script>
-    <script type="module">
-        import { loadProductDetail, increaseQuantity, decreaseQuantity, buyNow, addToCart } from '../../routes/Product-Detail.js';
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProductDetail();
-        });
-    </script>
 </head>
 <body>
     <!-- Header -->
@@ -150,8 +136,6 @@
                 <i class="far fa-star" data-user-rating="5"></i>
             </div>
         </div>
-    </div>
-
-    
+    </div>  
 </body>
 </html>

@@ -108,34 +108,42 @@ function prevImage() {
     document.getElementById('product-image').src = productImages[currentImageIndex];
 }
 
-// 🛒 Thêm vào giỏ hàng
-function addToCart() {
+// Xử lý mua hàng ngay
+function buyNow() {
+    addToCartSilently();
+    window.location.href = `/views/Cart/cart.html`;
+}
+
+// Thêm vào giỏ hàng mà không hiển thị thông báo
+function addToCartSilently() {
     if (!currentProduct) {
-        alert("⚠ Không tìm thấy sản phẩm để thêm vào giỏ hàng!");
+        console.error("Không có thông tin sản phẩm");
         return;
     }
 
     const quantity = parseInt(document.getElementById('quantity').value);
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
+    
     const existingItemIndex = cart.findIndex(item => item.id === currentProduct.id);
-
+    
     if (existingItemIndex !== -1) {
+        // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng
         cart[existingItemIndex].quantity += quantity;
     } else {
+        // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
         cart.push({
             id: currentProduct.id,
-            name: currentProduct.name,
-            price: currentProduct.price,
-            image: productImages[0] || 'default.jpg',
             quantity: quantity
         });
     }
-
+    
     localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
+    updateCartCount(); // Cập nhật số lượng giỏ hàng
+}
 
-    alert(`🎉 Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
+// Thêm vào giỏ hàng và hiển thị thông báo
+function addToCart() {
+    addToCartSilently();
 }
 
 // 🔄 Cập nhật số lượng giỏ hàng
@@ -144,14 +152,27 @@ function updateCartCount() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     document.getElementById('cart-count').textContent = totalItems;
 }
+function removeItem(productId) {
+    let cart = getCart();
+    cart = cart.filter(item => item.id !== productId);
+    saveCart(cart);
+    location.reload(); // ⚡ Reload lại trang sau khi xóa sản phẩm
+}
 
 // 🚀 Khởi động khi trang tải xong
 document.addEventListener('DOMContentLoaded', () => {
     loadProductDetail();
     updateCartCount();
+    const buyNowBtn = document.getElementById('buy-now');
+    if (buyNowBtn) {
+        buyNowBtn.addEventListener('click', buyNow);
+    }
 
-    document.getElementById('prev-button').addEventListener('click', prevImage);
-    document.getElementById('next-button').addEventListener('click', nextImage);
+    const addToCartBtn = document.getElementById('add-to-cart');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', addToCart);
+    }
+
 });
 
 // Gán các hàm vào `window` để HTML có thể gọi
@@ -160,3 +181,4 @@ window.addToCart = addToCart;
 window.loadProductDetail = loadProductDetail;
 window.prevImage = prevImage;
 window.nextImage = nextImage;
+window.removeItem = removeItem;

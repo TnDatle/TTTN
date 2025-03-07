@@ -66,8 +66,26 @@ async function displayProducts(category) {
 function viewProductDetail(productId, category, subCategory) {
     window.location.href = `product-detail.html?id=${productId}&categories=${category}&subCategories=${subCategory}`;
 }
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-count').textContent = totalItems;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+
+});
+function removeItem(productId) {
+    let cart = getCart();
+    cart = cart.filter(item => item.id !== productId);
+    saveCart(cart);
+    location.reload(); // ⚡ Reload lại trang sau khi xóa sản phẩm
+}
 
 // Gán hàm vào `window`
 window.viewProductDetail = viewProductDetail;
+window.removeItem = removeItem;
+
 
 export { displayProducts };
