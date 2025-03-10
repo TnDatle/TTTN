@@ -38,7 +38,7 @@ const server = http.createServer((req, res) => {
 
     // Kiểm tra route
     if (req.url === '/') {
-        filePath = path.join(__dirname, 'views', 'Admin' , 'admin_main.html');
+        filePath = path.join(__dirname, 'views', 'Admin' , 'Loginadmin.html');
     } 
     else if (req.url.startsWith('/public/')) {
         filePath = path.join(__dirname, req.url);
