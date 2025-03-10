@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.compare-config {
+    margin-bottom: 20px;
+}
+
+.compare-config-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.compare-config-left, .compare-config-right {
+    width: 45%;
+}
+
+.compare-config-left ul, .compare-config-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.compare-config-left li, .compare-config-right li {
+    margin-bottom: 10px;
+}
+
+.compare-config-left span, .compare-config-right span {
+    font-weight: bold;
+}
+
+.choose-laptop {
+    margin-bottom: 20px;
+}
+
+#laptop-1, #laptop-2 {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#compare-btn {
+    width: 100%;
+    height: 40px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#compare-btn:hover {
+    background-color: #3e8e41;
+}
+#laptop-1-image, #laptop-2-image {
+    width: 100px; /* chiều rộng hình ảnh */
+    height: 100px; /* chiều cao hình ảnh */
+    object-fit: cover; /* làm hình ảnh nhỏ lại và giữ nguyên tỷ lệ */
+    border-radius: 10px; /* làm hình ảnh có góc tròn */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* làm hình ảnh có bóng */
+  }

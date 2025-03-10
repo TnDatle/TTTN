@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So sánh cấu hình laptop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../public/css/compare.css">
+    <script type="module" src="../../routes/Compare.js"defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script type="module" src="../../routes/Firebase-Config.js"></script>
+    <script src="../../public/js/function.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="compare-config">
+            <h2>So sánh cấu hình</h2>
+            <div class="compare-config-container">
+                <div class="compare-config-left">
+                    <h3>Laptop 1</h3>
+                    <img id="laptop-1-image" alt="Hình ảnh laptop 1" >
+                    <ul>
+                        <li>CPU: <span id="cpu-1"></span></li>
+                        <li>RAM: <span id="ram-1"></span></li>
+                        <li>SSD: <span id="ssd-1"></span></li>
+                        <li>VGA: <span id="vga-1"></span></li>
+                    </ul>
+                </div>
+                <div class="compare-config-right">
+                    <h3>Laptop 2</h3>
+                    <img id="laptop-2-image" alt="Hình ảnh laptop 2">
+                    <ul>
+                        <li>CPU: <span id="cpu-2"></span></li>
+                        <li>RAM: <span id="ram-2"></span></li>
+                        <li>SSD: <span id="ssd-2"></span></li>
+                        <li>VGA: <span id="vga-2"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="choose-laptop">
+            <h2>Chọn laptop để so sánh</h2>
+            <select id="laptop-1">
+                <option value="">Chọn laptop 1</option>
+                <!-- Danh sách laptop sẽ được hiển thị tại đây -->
+            </select>
+            <select id="laptop-2">
+                <option value="">Chọn laptop 2</option>
+                <!-- Danh sách laptop sẽ được hiển thị tại đây -->
+            </select>
+            <button id="compare-btn">So sánh</button>
+        </div>
+    </div>
+</body>
+</html>
