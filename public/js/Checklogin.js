@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         cartIcon.addEventListener("click", async (e) => {
             e.preventDefault();
             const { isLoggedIn } = await checkSessionAndListen();
-            window.location.href = isLoggedIn ? "../views/Cart/Cart.html" : "../views/Login/Login.html";
+            window.location.href = isLoggedIn ? "/views/Cart/Cart.html" : "/views/Login/Login.html";
         });
     }
 

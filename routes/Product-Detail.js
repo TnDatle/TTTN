@@ -112,7 +112,7 @@ function prevImage() {
 // Xử lý mua hàng ngay
 function buyNow() {
   addToCartSilently();
-  window.location.href = `/views/Cart/cart.html`;
+  window.location.href = `/views/Cart/Cart.html`;
 }
 
 // Thêm vào giỏ hàng mà không hiển thị thông báo
@@ -168,7 +168,7 @@ async function getSimilarProducts() {
                product.ram === currentProduct.ram ||
                product.storage === currentProduct.storage ||
                product.category === currentProduct.category ||
-               product.price === currentProduct.price || product.price === currentProduct.price - 1 || product.price === currentProduct.price + 1)) {
+               product.price === currentProduct.price || product.price === currentProduct.price - 1000000 || product.price === currentProduct.price + 1000000)) {
             similarProducts.push(product);
           }
         }
