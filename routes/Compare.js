@@ -15,8 +15,8 @@ async function getLaptops() {
         name: laptop.name,
         cpu: laptop.cpu,
         ram: laptop.ram,
-        ssd: laptop.ssd,
-        vga: laptop.vga,
+        ssd: laptop.storage,
+        gpu: laptop.gpu,
         image: laptop.imageURLs, // Thêm trường image vào dữ liệu laptop
       });
     });
@@ -63,15 +63,15 @@ async function getLaptops() {
   
         document.getElementById('cpu-1').textContent = laptop1Data.cpu;
         document.getElementById('ram-1').textContent = laptop1Data.ram;
-        document.getElementById('ssd-1').textContent = laptop1Data.ssd;
-        document.getElementById('vga-1').textContent = laptop1Data.vga;
+        document.getElementById('ssd-1').textContent = laptop1Data.storage;
+        document.getElementById('vga-1').textContent = laptop1Data.gpu;
         document.getElementById('laptop-1-image').src = laptop1Data.imageURLs;
         document.querySelector('.compare-config-left h3').textContent = laptop1Data.name; // đổi tên laptop 1 // Thay đổi nguồn hình ảnh
   
         document.getElementById('cpu-2').textContent = laptop2Data.cpu;
         document.getElementById('ram-2').textContent = laptop2Data.ram;
-        document.getElementById('ssd-2').textContent = laptop2Data.ssd;
-        document.getElementById('vga-2').textContent = laptop2Data.vga;
+        document.getElementById('ssd-2').textContent = laptop2Data.storage;
+        document.getElementById('vga-2').textContent = laptop2Data.gpu;
         document.getElementById('laptop-2-image').src = laptop2Data.imageURLs; // Thay đổi nguồn hình ảnh
         document.querySelector('.compare-config-right h3').textContent = laptop2Data.name; // đổi tên laptop 2
       }
