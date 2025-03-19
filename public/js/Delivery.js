@@ -264,7 +264,6 @@ document.getElementById("provinceDropdown").addEventListener("change", function(
     }
 });
 
-
 // Lấy giỏ hàng từ localStorage
 function getCart() {
 return JSON.parse(localStorage.getItem('cart')) || [];
