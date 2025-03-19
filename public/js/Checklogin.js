@@ -124,3 +124,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     checkSessionAndListen(); // Kiểm tra đăng nhập và lắng nghe thay đổi real-time
 });
+
+
+
+async function buyNow() {
+    event.preventDefault();
+
+    const userSession = await checkSessionAndListen(); // Kiểm tra trạng thái đăng nhập
+    console.log("Trạng thái đăng nhập:", userSession);
+
+    if (userSession.isLoggedIn) {
+        window.location.href = "/views/Checkout/Checkout.html"; // Chuyển đến trang thanh toán
+    } else {
+        alert("Bạn cần đăng nhập để mua hàng!");
+        window.location.href = "/views/Login/Login.html"; // Chuyển đến trang đăng nhập
+    }
+}
+
+// Gán sự kiện khi DOM được load xong
+document.addEventListener("DOMContentLoaded", () => {
+    const buyNowBtn = document.querySelector("#buy-now");
+    if (buyNowBtn) {
+        buyNowBtn.addEventListener("click", buyNow);
+    }
+});
+
+async function checkSessionAndListen() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Giả lập kiểm tra session (có thể thay bằng API hoặc localStorage)
+            const isLoggedIn = localStorage.getItem("userSession") ? true : false;
+            resolve({ isLoggedIn });
+        }, 500);
+    });
+}

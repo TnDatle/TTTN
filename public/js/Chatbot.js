@@ -23,7 +23,7 @@ function toggleChat() {
         chatbox.style.display = "block";
         if (messageArea.innerHTML === "") {
             // Gửi câu hỏi ban đầu khi mở chat
-            sendBotMessage('Book Haven là một trang web bán sách trực tuyến, chuyên cung cấp các cuốn sách đa dạng từ nhiều thể loại khác nhau, bao gồm các sách tự xuất bản của tác giả. Với sứ mệnh hỗ trợ các tác giả tự xuất bản, Book Haven không chỉ cung cấp nền tảng xuất bản dễ dàng mà còn giúp các tác giả xây dựng thương hiệu và tăng cường sự hiện diện trực tuyến.');
+            sendBotMessage('DHH Store là một trang web bán laptop và phụ kiện trực tuyến, chuyên cung cấp đa dạng các dòng sản phẩm từ nhiều thương hiệu khác nhau. Với sứ mệnh mang đến giải pháp công nghệ chất lượng, DHH Store không chỉ cung cấp nền tảng mua sắm tiện lợi mà còn hỗ trợ khách hàng trong việc lựa chọn sản phẩm phù hợp, đảm bảo trải nghiệm mua sắm an toàn và tối ưu.');
             displayQuestions();  // Hiển thị câu hỏi sau khi mở chat
         }
         scrollToBottom(); // Cuộn xuống dưới khi mở chat
@@ -47,9 +47,9 @@ function displayQuestions() {
     const messageArea = document.getElementById("messages");
 
     const questions = [
-        { text: "Sách đang bán chạy nhất ở đây là gì?", answer: "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh." },
-        { text: "Chính sách bảo hành ở đây là gì?", answer: " Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi." },
-        { text: "Shop có bán sách chính hãng không?", answer: "Tất cả sách bán tại Book Haven đều là sách chính hãng." }
+        { text: "Laptop bán chạy nhất ở đây là gì?", answer: "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh." },
+        { text: "Chính sách bảo hành ở đây là gì?", answer: " Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu laptop hoặc phụ kiện bị lỗi." },
+        { text: "Shop có bán sản phẩm chính hãng không?", answer: "Tất cả sản phẩm bán tại DHH Store đều là sách chính hãng." }
     ];
 
     questions.forEach(question => {

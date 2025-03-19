@@ -109,11 +109,6 @@ function prevImage() {
   document.getElementById('product-image').src = productImages[currentImageIndex];
 }
 
-// Xử lý mua hàng ngay
-function buyNow() {
-  addToCartSilently();
-  window.location.href = `/views/Cart/Cart.html`;
-}
 
 // Thêm vào giỏ hàng mà không hiển thị thông báo
 function addToCartSilently() {
@@ -200,10 +195,6 @@ function displaySimilarProducts(similarProducts) {
 document.addEventListener('DOMContentLoaded', () => {
   loadProductDetail();
   updateCartCount();
-  const buyNowBtn = document.getElementById('buy-now');
-  if (buyNowBtn) {
-    buyNowBtn.addEventListener('click', buyNow);
-  }
 
   const addToCartBtn = document.getElementById('add-to-cart');
   if (addToCartBtn) {
