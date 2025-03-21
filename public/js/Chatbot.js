@@ -47,10 +47,10 @@ function displayQuestions() {
     const messageArea = document.getElementById("messages");
 
     const questions = [
-        { text: "Laptop bán chạy nhất ở đây là gì?", answer: "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh." },
-        { text: "Chính sách bảo hành ở đây là gì?", answer: " Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu laptop hoặc phụ kiện bị lỗi." },
-        { text: "Shop có bán sản phẩm chính hãng không?", answer: "Tất cả sản phẩm bán tại DHH Store đều là sách chính hãng." }
-    ];
+        { text: "Laptop bán chạy nhất ở đây là gì?", answer: "Laptop bán chạy nhất hiện nay là 'Dell XPS 13' với hiệu năng mạnh mẽ và thiết kế cao cấp." },
+        { text: "Chính sách bảo hành ở đây là gì?", answer: "Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu laptop hoặc phụ kiện bị lỗi." },
+        { text: "Shop có bán sản phẩm chính hãng không?", answer: "Tất cả sản phẩm bán tại DHH Store đều là laptop chính hãng, cam kết chất lượng." }
+    ];    
 
     questions.forEach(question => {
         const button = document.createElement("button");
@@ -144,19 +144,19 @@ function autoReply(userInput) {
 
     let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang facebook chính thức";
     // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
-    if (userInput.toLowerCase().includes("sách bán chạy")|| userInput.toLowerCase().includes("sách hot")|| userInput.toLowerCase().includes("best seller")|| userInput.toLowerCase().includes("sách hot")) {
-        botResponse = "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("bảo hành")|| userInput.toLowerCase().includes("đổi trả")) {
-        botResponse = "Sách không có chính sách bảo hành, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("sách chính hãng")|| userInput.toLowerCase().includes("hợp lệ")|| userInput.toLowerCase().includes("uy tín")) {
-        botResponse = "Tất cả sách bán tại Book Haven đều là sách chính hãng.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("ship")|| userInput.toLowerCase().includes("có ship không ạ ?")|| userInput.toLowerCase().includes("giao hàng ")) {
-        botResponse = "Thời gian ship hàng là 2-3 ngày trong TP.HCM và 4-5 ngày ở các tỉnh thành khác kể từ khi nhận được đơn hàng.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("chào shop")|| userInput.toLowerCase().includes("hi")|| userInput.toLowerCase().includes("hello")|| userInput.toLowerCase().includes("dạ chào shop")) {
-        botResponse = "Chào bạn, tôi là bot của shop bán sách Book Haven, mọi câu trả lời của tôi được lập trình sẵn. Nếu cần tư vấn riêng hãy liên hệ trang facebook cá nhân của shop ";
-    } else if (userInput.toLowerCase().includes("mượn sách")|| userInput.toLowerCase().includes("thuê sách")|| userInput.toLowerCase().includes("rent")|| userInput.toLowerCase().includes("mướn sách")) {
-        botResponse = "Shop chỉ bán sách chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
-    }
+    if (userInput.toLowerCase().includes("laptop bán chạy") || userInput.toLowerCase().includes("laptop hot") || userInput.toLowerCase().includes("best seller") || userInput.toLowerCase().includes("máy tính hot")) {
+        botResponse = "Laptop bán chạy nhất hiện nay là 'Dell XPS 13' với hiệu năng mạnh mẽ và thiết kế cao cấp. (Bot Reply)";
+    } else if (userInput.toLowerCase().includes("bảo hành") || userInput.toLowerCase().includes("đổi trả")) {
+        botResponse = "Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu laptop hoặc phụ kiện bị lỗi. (Bot Reply)";
+    } else if (userInput.toLowerCase().includes("laptop chính hãng") || userInput.toLowerCase().includes("hợp lệ") || userInput.toLowerCase().includes("uy tín")) {
+        botResponse = "Tất cả laptop bán tại DHH Store đều là sản phẩm chính hãng, cam kết chất lượng. (Bot Reply)";
+    } else if (userInput.toLowerCase().includes("ship") || userInput.toLowerCase().includes("có ship không ạ ?") || userInput.toLowerCase().includes("giao hàng")) {
+        botResponse = "Thời gian ship hàng là 2-3 ngày trong TP.HCM và 4-5 ngày ở các tỉnh thành khác kể từ khi nhận được đơn hàng. (Bot Reply)";
+    } else if (userInput.toLowerCase().includes("chào shop") || userInput.toLowerCase().includes("hi") || userInput.toLowerCase().includes("hello") || userInput.toLowerCase().includes("dạ chào shop")) {
+        botResponse = "Chào bạn, tôi là bot của shop bán laptop DHH Store, mọi câu trả lời của tôi được lập trình sẵn. Nếu cần tư vấn riêng hãy liên hệ trang Facebook cá nhân của shop.";
+    } else if (userInput.toLowerCase().includes("mượn laptop") || userInput.toLowerCase().includes("thuê laptop") || userInput.toLowerCase().includes("rent") || userInput.toLowerCase().includes("mướn laptop")) {
+        botResponse = "Shop chỉ bán laptop chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
+    }    
     
     // Tạo tin nhắn bot trả lời
     const botMessage = document.createElement("div");
