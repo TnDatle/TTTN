@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="/public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../home.html">
-    <script src="/public/js/Checklogin.js"></script>
+    <script type="module" src="/public/js/Checklogin.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script type="module" src="/public/js/Cart.js"></script>
     <script type="module" src="../../public/js/Delivery.js"></script>
 </head>
 <body>
@@ -19,31 +20,30 @@
         <div class="container">
             <div class="row">
                 <div class="top-logo">
-                    <a href="/home.html"><img src="/public/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
+                    <a href="/home.html"><img src="/public/img/logo.png" alt=""></a>
                 </div>
                 <div class="top-menu-items">
                     <ul>
                         <li>
-                            Giáo khoa tham khảo
+                            <h4>Laptop</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/manga-comic.html">Manga - Comic</a></li>
-                                <li><a href="/html-cartegory/tamly-kinangsong.html">Tâm lý - Kĩ năng sống</a></li>
-                                <li><a href="/html-cartegory/sachhocngoaingu.html">Sách học ngoại ngữ</a></li>
+                                <li><a href="/views/Category/Gaming.html">Laptop Gaming</a></li>
+                                <li><a href="/views/Category/Laptop.html">laptop Văn Phòng</a></li>
+                                <li><a href="/views/Category/Workstation.html">Workstation Laptop</a></li>
                             </ul>
                         </li>
                         <li>
-                            VPP - Dụng cụ học sinh
+                            <h4>Phụ Kiện</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/but-viet.html">Bút - Viết</a></li>
-                                <li><a href="/html-cartegory/sanphamvegiay.html">Sản phẩm về giấy</a></li>
-                                <li><a href="/html-cartegory/dungcuvanphong.html">Dụng cụ văn phòng</a></li>
+                                <li><a href="/views/Category/Mouse.html">Chuột</a></li>
+                                <li><a href="/views/Category/Keyboard.html">Bàn Phím</a></li>
+                                <li><a href="/views/Category/Headphone.html">Tai Nghe</a></li>
                             </ul>
                         </li>
                         <li>
-                            Đồ chơi
+                            <h4>Cấu Hình</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/dochoigiaoduc.html">Đồ chơi giáo dục</a></li>
-                                <li><a href="/html-cartegory/mohinhcacloai.html">Mô hình các loại</a></li>
+                                <li id="compare-link"><a href="#">So sánh cấu hình</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -56,8 +56,8 @@
                                 <button id="searchButton" class="fas fa-search"></button>
                             </div>
                         </li>
-                        <li><a href="/login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
-                        <li><a href="/html-cart/cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
+                        <li><a href="../Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="../Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
                     </ul>
                 </div>
             </div>

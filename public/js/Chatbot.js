@@ -142,22 +142,21 @@ function sendMessage() {
 function autoReply(userInput) {
     const messageArea = document.getElementById("messages");
 
-    let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang facebook chính thức";
-    // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
-    if (userInput.toLowerCase().includes("sách bán chạy")|| userInput.toLowerCase().includes("sách hot")|| userInput.toLowerCase().includes("best seller")|| userInput.toLowerCase().includes("sách hot")) {
-        botResponse = "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("bảo hành")|| userInput.toLowerCase().includes("đổi trả")) {
-        botResponse = "Sách không có chính sách bảo hành, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("sách chính hãng")|| userInput.toLowerCase().includes("hợp lệ")|| userInput.toLowerCase().includes("uy tín")) {
-        botResponse = "Tất cả sách bán tại Book Haven đều là sách chính hãng.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("ship")|| userInput.toLowerCase().includes("có ship không ạ ?")|| userInput.toLowerCase().includes("giao hàng ")) {
-        botResponse = "Thời gian ship hàng là 2-3 ngày trong TP.HCM và 4-5 ngày ở các tỉnh thành khác kể từ khi nhận được đơn hàng.(Bot Reply)";
-    } else if (userInput.toLowerCase().includes("chào shop")|| userInput.toLowerCase().includes("hi")|| userInput.toLowerCase().includes("hello")|| userInput.toLowerCase().includes("dạ chào shop")) {
-        botResponse = "Chào bạn, tôi là bot của shop bán sách Book Haven, mọi câu trả lời của tôi được lập trình sẵn. Nếu cần tư vấn riêng hãy liên hệ trang facebook cá nhân của shop ";
-    } else if (userInput.toLowerCase().includes("mượn sách")|| userInput.toLowerCase().includes("thuê sách")|| userInput.toLowerCase().includes("rent")|| userInput.toLowerCase().includes("mướn sách")) {
-        botResponse = "Shop chỉ bán sách chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
-    }
-    
+    let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang Facebook chính thức";
+        // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
+        if (userInput.toLowerCase().includes("laptop bán chạy") || userInput.toLowerCase().includes("laptop hot") || userInput.toLowerCase().includes("best seller") || userInput.toLowerCase().includes("laptop tốt")) {
+            botResponse = "Laptop bán chạy nhất hiện nay là MacBook Air M2 và Dell XPS 13. (Bot Reply)";
+        } else if (userInput.toLowerCase().includes("bảo hành") || userInput.toLowerCase().includes("đổi trả")) {
+            botResponse = "Laptop được bảo hành chính hãng từ 12-24 tháng tùy theo dòng máy. Đổi trả trong 7 ngày nếu có lỗi từ nhà sản xuất. (Bot Reply)";
+        } else if (userInput.toLowerCase().includes("laptop chính hãng") || userInput.toLowerCase().includes("hợp lệ") || userInput.toLowerCase().includes("uy tín")) {
+            botResponse = "Tất cả laptop tại cửa hàng đều là hàng chính hãng, có đầy đủ giấy tờ và bảo hành từ nhà sản xuất. (Bot Reply)";
+        } else if (userInput.toLowerCase().includes("ship") || userInput.toLowerCase().includes("có ship không ạ ?") || userInput.toLowerCase().includes("giao hàng")) {
+            botResponse = "Chúng tôi hỗ trợ giao hàng toàn quốc. Thời gian giao hàng từ 2-3 ngày tại TP.HCM và 4-5 ngày đối với các tỉnh thành khác. (Bot Reply)";
+        } else if (userInput.toLowerCase().includes("chào shop") || userInput.toLowerCase().includes("hi") || userInput.toLowerCase().includes("hello") || userInput.toLowerCase().includes("dạ chào shop")) {
+            botResponse = "Chào bạn, tôi là bot hỗ trợ của cửa hàng laptop. Nếu bạn cần tư vấn chi tiết, vui lòng liên hệ trang Facebook chính thức của shop.";
+        } else if (userInput.toLowerCase().includes("thuê laptop") || userInput.toLowerCase().includes("mượn laptop") || userInput.toLowerCase().includes("rent") || userInput.toLowerCase().includes("mướn laptop")) {
+            botResponse = "Shop chỉ bán laptop chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
+        }
     // Tạo tin nhắn bot trả lời
     const botMessage = document.createElement("div");
     botMessage.classList.add("bot-message");
@@ -166,7 +165,6 @@ function autoReply(userInput) {
 
     // Cuộn xuống dưới khi có tin nhắn mới
     messageArea.scrollTop = messageArea.scrollHeight;
-
 }
 
 // Hàm cuộn xuống dưới cùng của khung chat

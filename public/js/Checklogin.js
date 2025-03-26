@@ -127,19 +127,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-async function buyNow() {
-    event.preventDefault();
+async function buyNow(event) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của button
 
-    const userSession = await checkSessionAndListen(); // Kiểm tra trạng thái đăng nhập
+    const userSession = await checkSessionAndListen(); // Kiểm tra trạng thái đăng nhập từ Firebase
     console.log("Trạng thái đăng nhập:", userSession);
 
     if (userSession.isLoggedIn) {
-        window.location.href = "/views/Checkout/Checkout.html"; // Chuyển đến trang thanh toán
+        window.location.href = "/views/Delivery/Delivery.html"; // Chuyển đến trang thanh toán
     } else {
         alert("Bạn cần đăng nhập để mua hàng!");
         window.location.href = "/views/Login/Login.html"; // Chuyển đến trang đăng nhập
     }
 }
+
+
 
 // Gán sự kiện khi DOM được load xong
 document.addEventListener("DOMContentLoaded", () => {
@@ -151,10 +153,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function checkSessionAndListen() {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            // Giả lập kiểm tra session (có thể thay bằng API hoặc localStorage)
-            const isLoggedIn = localStorage.getItem("userSession") ? true : false;
-            resolve({ isLoggedIn });
-        }, 500);
+        const auth = getAuth(); // Lấy Firebase Auth
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                resolve({ isLoggedIn: true, userEmail: user.email });
+            } else {
+                resolve({ isLoggedIn: false });
+            }
+        });
     });
 }
+
+

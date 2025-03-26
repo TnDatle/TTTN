@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mecongnghe-DHH Store</title>
     <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/best-celling.css">
+    <!-- <link rel="stylesheet" href="/public/css/best-celling.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="html-cartegory/">
     <script type="module" src="/public/js/Checklogin.js" ></script>
     <script src="/public/js/Chatbot.js"></script>
     <script type="module" src="/public/js/Cart.js"></script>
+    <script type="module" src="/public/js/Best-seller.js"></script>
+    
 </head>
 <body>
     <section class="top">
@@ -102,10 +106,20 @@
 <!------------------------ BEST-SELLING ----------------------->
 <section class="best-selling">
     <h2>Sản phẩm bán chạy</h2>
-    <div id="products-list" class="products-container">
-        <!-- Dữ liệu sản phẩm sẽ được thêm tự động từ Firebase -->
+
+    <div class="swiper-container">
+        <button id="prev-btn" class="nav-button left">◀</button>
+
+        <div class="swiper-wrapper" id="products-list">
+            <!-- Dữ liệu sản phẩm từ Firebase sẽ được thêm vào đây -->
+        </div>
+
+        <button id="next-btn" class="nav-button right">▶</button>
+
+        <div class="swiper-pagination"></div>
     </div>
 </section>
+
 <!------------------------ APP-SHOW ----------------------->
 <section class="app-show">
     <div class="container-app">
@@ -142,11 +156,11 @@
     <div class="footer-container">
         <p>Truy cập Fanpage <a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank">ĐHH Computer</a></p>
         <div class="app-google">
-            <a href="https://www.apple.com/app-store/" target="_blank"><img src="/img/Screenshot 2024-05-15 003849.png" alt=""></a>
-            <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="/img/Screenshot 2024-05-15 003813.png" alt=""></a>
+            <a href="https://www.apple.com/app-store/" target="_blank"><img src="" alt=""></a>
+            <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="" alt=""></a>
         </div>
         <div class="footer-items">
-            <li><a href="http://online.gov.vn" target="_blank"><img src="/img/Screenshot 2024-05-15 003506.png" alt="" ></a></li>
+            <li><a href="http://online.gov.vn" target="_blank"><img src="/public/img/bct.png" alt="" ></a></li>
             <li><a href="tel:0797268602">Liên hệ</a></li>
             <li><a href="">Giới thiệu</a></li>
             <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=bookhavenstoresince2024@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>
