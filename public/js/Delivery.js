@@ -1,7 +1,7 @@
 // delivery.js
 
 // Import Firebase modules
-import { db } from '../../routes/Firebase-Config.js';
+import { db, auth } from '../../routes/Firebase-Config.js';
 import {  doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
 
