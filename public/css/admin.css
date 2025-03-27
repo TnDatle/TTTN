@@ -432,7 +432,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0 10px;
-    z-index: 100;
+    z-index: 50;
 }
 
 .toggle {
@@ -501,6 +501,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap:30px;
+    margin-top: 70px;
 }
 
 .cardBox .card {
@@ -550,7 +551,7 @@ body {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 30px;
-    margin-top: 10px;
+    margin-top: 70px;
 }
 
 .details .recentOrders {
@@ -561,6 +562,7 @@ body {
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
+
 }
 
 .details .cardHeader {
@@ -572,6 +574,7 @@ body {
 .cardHeader h2 {
     font-weight: 600;
     color: var(--blue);
+    margin-top: 70px;
 }
 
 .cardHeader .btn {

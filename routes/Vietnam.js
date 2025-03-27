@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Lấy dropdown tỉnh thành và quận/huyện
     const provinceDropdown = document.getElementById('provinceDropdown');
     const districtDropdown = document.getElementById('districtDropdown');
+    const wardDropdown = document.getElementById('wardDropdown');
 
     // Lấy danh sách tỉnh thành từ API
     fetch(apiUrl)

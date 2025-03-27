@@ -5,13 +5,13 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDMKBDgcjZaFh2LDPs9ZuQzQFHMuZtnOPA",
-  authDomain: "store-music-fae02.firebaseapp.com",
-  databaseURL:"https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "store-music-fae02",
-  storageBucket: "store-music-fae02.appspot.com",
-  messagingSenderId: "35440000355",
-  appId: "1:35440000355:web:7f49a002690331b9812756",
-  measurementId: "G-BQPH02HFGC",
+    authDomain: "store-music-fae02.firebaseapp.com",
+    databaseURL: "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "store-music-fae02",
+    storageBucket: "store-music-fae02.appspot.com",
+    messagingSenderId: "35440000355",
+    appId: "1:35440000355:web:7f49a002690331b9812756",
+    measurementId: "G-BQPH02HFGC",
 };
 
 // Initialize Firebase
@@ -22,40 +22,36 @@ const auth = getAuth(app);
 // lấy đơn hàng người dùng dựa trên địa chỉ email
 async function fetchUserOrders(userEmail) {
     const ordersCollection = collection(db, "orders");
-    const q = query(ordersCollection, where("useremail", "==", userEmail)); // Query to fetch orders for the given user email
+    const q = query(ordersCollection, where("useremail", "==", userEmail));
     const ordersSnapshot = await getDocs(q);
     const ordersList = ordersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    const ordersContainer = document.querySelector('.container-orders');
-    ordersContainer.innerHTML = ""; // Clear any previous orders
+    const currentOrdersContainer = document.getElementById("current-orders-container");
+    const orderHistoryContainer = document.getElementById("order-history-container");
+
+    // Xóa dữ liệu cũ
+    currentOrdersContainer.innerHTML = "";
+    orderHistoryContainer.innerHTML = "";
 
     if (ordersList.length === 0) {
-        // If no orders are found, display the default message
-        ordersContainer.innerHTML = "<p>Chưa có đơn hàng nào.</p>";
-        return; // Stop further processing if no orders
+        currentOrdersContainer.innerHTML = "<p>Không có đơn hàng nào đang xử lý.</p>";
+        orderHistoryContainer.innerHTML = "<p>Chưa có lịch sử đơn hàng.</p>";
+        return;
     }
 
-    // nếu tìm được đơn hàng, tạo và hiển thị các dữ liệu trong đơn hàng
     ordersList.forEach(order => {
         const orderDiv = document.createElement('div');
         orderDiv.classList.add('order');
 
-        // Lấy và định dạng ngày tạo (createdAt)
         let createdAtFormatted = "Chưa cập nhật";
         if (order.createdAt) {
-            const createdAtDate = order.createdAt.toDate(); // Chuyển đổi Firestore Timestamp sang Date
+            const createdAtDate = order.createdAt.toDate();
             createdAtFormatted = createdAtDate.toLocaleString("vi-VN", {
-                weekday: "long", // Thứ
-                day: "numeric", // Ngày
-                month: "long", // Tháng
-                year: "numeric", // Năm
-                hour: "numeric", // Giờ
-                minute: "numeric", // Phút
-                hour24: true, // Định dạng 24 giờ
+                weekday: "long", day: "numeric", month: "long",
+                year: "numeric", hour: "numeric", minute: "numeric", hour24: true
             });
         }
 
-        // Create a dropdown for status
         const createStatusDropdown = (status) => {
             const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công", "Đã hủy"];
             return ` 
@@ -78,11 +74,8 @@ async function fetchUserOrders(userEmail) {
                 <p><strong>Họ và tên:</strong> ${order.fullName || 'Chưa cập nhật'}</p>
                 <p><strong>Số điện thoại:</strong> ${order.phone || 'Chưa cập nhật'}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || 'Chưa cập nhật'}</p>
-                <p><strong>Phường/Xã/Thị trấn:</strong> ${order.ward || 'Chưa cập nhật'}</p>
-                <p><strong>Quận:</strong> ${order.district || 'Chưa cập nhật'}</p>
-                <p><strong>Tỉnh:</strong> ${order.province || 'Chưa cập nhật'}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment}</p>
-                <p><strong>Ngày tạo:</strong> ${createdAtFormatted}</p> <!-- Hiển thị ngày tạo -->
+                <p><strong>Ngày tạo:</strong> ${createdAtFormatted}</p>
             </div>
             <div class="product-list">
                 ${order.items.map(item => `
@@ -99,22 +92,25 @@ async function fetchUserOrders(userEmail) {
             </div>
         `;
 
-        ordersContainer.appendChild(orderDiv);
+        // Phân loại vào "Đơn hàng hiện tại" hoặc "Lịch sử đơn hàng"
+        if (["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng"].includes(order.status)) {
+            currentOrdersContainer.appendChild(orderDiv);
+        } else {
+            orderHistoryContainer.appendChild(orderDiv);
+        }
     });
 
-    // Handle status change event
-    const statusDropdowns = document.querySelectorAll('.status-dropdown');
-    statusDropdowns.forEach(dropdown => {
+    // Xử lý sự kiện thay đổi trạng thái
+    document.querySelectorAll('.status-dropdown').forEach(dropdown => {
         dropdown.addEventListener('change', async (event) => {
             const orderId = event.target.getAttribute('data-order-id');
             const newStatus = event.target.value;
 
-            const ordersCollection = collection(db, "orders");
             const q = query(ordersCollection, where("orderId", "==", orderId));
             const querySnapshot = await getDocs(q);
 
             if (querySnapshot.empty) {
-                console.error(`Tài liệu với orderId ${orderId} không tồn tại trong Firestore`);
+                console.error(`Không tìm thấy đơn hàng với ID ${orderId}`);
                 return;
             }
 
@@ -123,25 +119,10 @@ async function fetchUserOrders(userEmail) {
 
             await updateDoc(orderRef, { status: newStatus });
 
-            // Update the status in DOM
-            const statusElement = event.target.closest('.order').querySelector('.status');
-            statusElement.textContent = newStatus;
+            fetchUserOrders(userEmail); // Cập nhật lại danh sách sau khi thay đổi trạng thái
         });
     });
 }
-
-// Listen for email selection change
-document.getElementById('emailOptions').addEventListener('change', (event) => {
-    const selectedEmail = event.target.value;
-    const ordersContainer = document.querySelector('.container-orders');
-
-    if (!selectedEmail) {
-        ordersContainer.innerHTML = "<p>Vui lòng chọn email để xem đơn hàng.</p>";
-        return;
-    }
-
-    fetchUserOrders(selectedEmail); // Fetch orders for selected email
-});
 
 // truy vấn firestore để lấy danh sách người dung và thêm địa chỉ email của họ vào dropdown
 async function loadEmails() {
@@ -158,21 +139,37 @@ async function loadEmails() {
     });
 }
 
-// Load the email list when the page is loaded
-loadEmails();
 
-// theo dõi trạng thái đăng nhập của người dùng và cập nhật giao diện tương ứng 
-onAuthStateChanged(auth, async (user) => {
-    const ordersContainer = document.querySelector('.container-orders');
-    if (user) {
-        // User is logged in, set the email
-        const userEmail = user.email;
+document.addEventListener("DOMContentLoaded", function () {
+    const currentOrdersTab = document.getElementById("current-orders-tab");
+    const orderHistoryTab = document.getElementById("order-history-tab");
+    const currentOrdersContent = document.getElementById("current-orders");
+    const orderHistoryContent = document.getElementById("order-history");
+    
+    // Chuyển tab giữa "Đơn hàng hiện tại" và "Lịch sử đặt hàng"
+    currentOrdersTab.addEventListener("click", function () {
+        currentOrdersTab.classList.add("active");
+        orderHistoryTab.classList.remove("active");
 
-        // Auto-select the email in the dropdown, but do NOT fetch orders automatically
-        const emailSelect = document.getElementById('emailOptions');
-        emailSelect.value = userEmail; // Set the email
-    } else {
-        // User is not logged in, clear the orders container and show the message
-        ordersContainer.innerHTML = "<p>Người dùng chưa đăng nhập. Vui lòng đăng nhập để xem đơn hàng.</p>";
-    }
+        currentOrdersContent.classList.add("active");
+        orderHistoryContent.classList.remove("active");
+    });
+
+    orderHistoryTab.addEventListener("click", function () {
+        orderHistoryTab.classList.add("active");
+        currentOrdersTab.classList.remove("active");
+
+        orderHistoryContent.classList.add("active");
+        currentOrdersContent.classList.remove("active");
+    });
+
+    // Chỉ gọi fetchUserOrders() sau khi chọn email
+    document.getElementById('emailOptions').addEventListener("change", function () {
+        let userEmail = this.value; // ✅ Khai báo biến trước khi sử dụng
+        userEmail = this.value;
+        fetchUserOrders(userEmail);
+    });
+
+    loadEmails(); // Load danh sách email khi trang tải xong
 });
+

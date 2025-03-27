@@ -1,172 +1,214 @@
+/* --------- Dropdown chọn email --------- */
 .emailSelector {
-    margin-bottom: 20px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+}
+
+.emailSelector label {
+    font-size: 18px; /* Tăng kích thước chữ */
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
 }
 
 .emailSelector select {
-    padding: 10px;
-    font-size: 16px;
+    padding: 12px;
+    font-size: 18px; /* Chữ to hơn */
     width: 100%;
-    max-width: 250px;
-    border-radius: 4px;
+    max-width: 350px; /* Mở rộng dropdown */
+    border-radius: 6px;
     border: 1px solid #ccc;
-}
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-    }
-    .container-orders {
-        max-width: 800px;
-        margin: auto;
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-        text-align: center;
-        color: #333;
-    }
-    .order {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        padding: 15px;
-        background: #f9f9f9;
-    }
-    .order-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .order-header h2 {
-        margin: 0;
-        font-size: 18px;
-        color: #007BFF;
-    }
-    .order-header .status {
-        font-weight: bold;
-    }
-    .product-list {
-        margin-top: 10px;
-        display: flex; /* Sử dụng flexbox để căn chỉnh sản phẩm */
-        flex-direction: column; /* Sắp xếp theo chiều dọc */
-    }
-    .product {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 0;
-        border-bottom: 1px solid #ddd;
-        width:100%;
-    }
-    .product span {
-    flex: 1; /* Đảm bảo các phần tử con chiếm đều không gian */
-    
-    }
-    .product:last-child {
-        border-bottom: none;
-    }
-.total {
-        font-weight: bold;
-        margin-top: 10px;
-    }
-.order-section {
-padding: 20px; /* Thêm khoảng cách bên trong cho toàn bộ phần đơn hàng */
-background-color: #f4f4f4; /* Màu nền nhẹ cho phần đơn hàng */
-margin-top: 80px; / /* Màu nền nhẹ cho phần đơn hàng */
-}
-.footer{
-margin-top: 300px;
-}
-/* Container for the order status */
-.order-status {
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-/* Style for the status dropdown */
-.status-dropdown {
-    width: 100%;
-    max-width: 250px;
-    padding: 8px;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
     transition: border-color 0.3s ease;
 }
 
-/* Focus effect for the dropdown */
+/* --------- Phần hiển thị đơn hàng --------- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 30px; /* Tăng khoảng cách lề */
+}
+
+.order-section {
+    width: 1200px; /* Giữ nội dung gọn hơn */
+    margin: 20px auto;
+    padding: 30px; /* Tăng padding */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Hiển thị thanh cuộn khi cần */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 28px; /* Làm to tiêu đề */
+    margin-bottom: 25px;
+}
+
+/* --------- Danh sách đơn hàng --------- */
+.order {
+    border: 2px solid #ddd; /* Viền to hơn */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px; /* Tăng khoảng cách bên trong */
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+    font-size: 18px; /* Chữ trong đơn hàng to hơn */
+}
+
+
+/* Header đơn hàng */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px; /* Tăng font */
+    margin-bottom: 12px;
+}
+
+.order-header h2 {
+    margin: 0;
+    font-size: 22px; /* Tăng cỡ chữ ID đơn hàng */
+    color: #007BFF;
+}
+
+.order-header .status {
+    font-weight: bold;
+    font-size: 18px;
+    color: #007bff;
+}
+
+/* Danh sách sản phẩm */
+.product-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 2px solid #ddd; /* Viền dày hơn */
+    width: 100%;
+}
+
+.product:last-child {
+    border-bottom: none;
+}
+
+.product span {
+    flex: 1;
+    font-size: 18px; /* Chữ to hơn */
+}
+
+/* Tổng giá trị đơn hàng */
+.total {
+    font-weight: bold;
+    font-size: 20px; /* Làm to chữ */
+    margin-top: 15px;
+}
+
+/* --------- Dropdown trạng thái đơn hàng --------- */
+.order-status {
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+.status-dropdown {
+    width: 100%;
+    max-width: 300px; /* Mở rộng dropdown */
+    padding: 12px;
+    font-size: 18px; /* Chữ dropdown lớn hơn */
+    color: #333;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc; /* Viền dày hơn */
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
 .status-dropdown:focus {
     border-color: #007bff;
     outline: none;
 }
 
-/* Style for selected options */
 .status-dropdown option {
-    padding: 10px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 16px;
 }
 
-/* Hover effect for options */
 .status-dropdown:hover {
     cursor: pointer;
     background-color: #f1f1f1;
 }
 
-/* Adding space between orders and dropdown */
-.order {
-    padding: 15px;
-    border: 1px solid #ddd;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    background-color: #fff;
-}
-
-/* Header of each order */
-.order-header {
+/* --------- Tăng kích thước nút chuyển đổi --------- */
+.order-tabs {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    margin-bottom: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
 }
 
-.order-header .status {
+.order-tabs button {
+    padding: 15px 25px; /* Tăng kích thước nút */
+    font-size: 20px; /* Chữ to hơn */
     font-weight: bold;
-    color: #007bff;
+    border: 2px solid #007bff;
+    background-color: #ddd;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
-/* Customer info section */
-.customer-info p {
-    margin: 5px 0;
-    font-size: 14px;
+.order-tabs button.active {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.1); /* Hiệu ứng phóng to nhẹ */
 }
 
-/* Product list */
-.product-list .product {
-    margin-bottom: 10px;
+/* --------- Tăng kích thước vùng nội dung --------- */
+.order-content {
+    display: none;
+    padding: 20px; /* Thêm khoảng cách bên trong */
+    font-size: 18px; /* Chữ trong nội dung lớn hơn */
 }
 
-.product-list span {
+.order-content.active {
     display: block;
-    margin-bottom: 5px;
 }
 
-/* Total cost styling */
-.total {
-    font-weight: bold;
-    font-size: 16px;
-    margin-top: 10px;
-}
+/* --------- Responsive --------- */
+@media (max-width: 768px) {
+    .order {
+        padding: 15px;
+    }
 
-/* Responsiveness */
-@media (max-width: 600px) {
-    .status-dropdown {
-        width: 100%;
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-header h2 {
+        font-size: 20px;
+    }
+
+    .product-list span {
+        font-size: 16px;
+    }
+
+    .total {
+        font-size: 18px;
+    }
+
+    .order-tabs button {
+        font-size: 18px;
+        padding: 12px 20px;
     }
 }

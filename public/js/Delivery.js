@@ -323,9 +323,6 @@ for (const item of cart) {
 document.addEventListener('DOMContentLoaded', updateCartTable);
 
 
-
-
-
 // Gán sự kiện cho nút thanh toán
 document.querySelector('.delivery-content-left-button button:last-child').addEventListener('click', submitOrder);
 document.getElementById('districtDropdown').addEventListener('change', function() {
