@@ -129,6 +129,16 @@ function validatePhoneNumber(phone) {
 
 // Hàm để xử lý khi người dùng nhấn nút thanh toán
 async function submitOrder() {
+    // Lấy thông tin người dùng đang đăng nhập từ Firebase Auth
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+        alert("Bạn cần đăng nhập để đặt hàng!");
+        return;
+    }
+
+    const useremail = currentUser.email; // Lấy email của người dùng
+
     const fullName = document.getElementById("fullName").value;
     const phone = document.getElementById("phone").value;
     const province = document.getElementById("provinceDropdown").value;
@@ -137,56 +147,57 @@ async function submitOrder() {
     const address = document.getElementById("addressInput").value;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-     // Kiểm tra số điện thoại
-     if (!validatePhoneNumber(phone)) {
-        alert("Số điện thoại phải có 10 số ");
-        return; // Dừng xử lý nếu số điện thoại không hợp lệ
+    // Kiểm tra số điện thoại
+    if (!validatePhoneNumber(phone)) {
+        alert("Số điện thoại phải có 10 số.");
+        return;
     }
 
-    // Tính tổng tiền và tạo mảng items
+    // Tính tổng tiền và tạo danh sách sản phẩm
     let total = 0;
-    const items = []; // Mảng để lưu thông tin sản phẩm
+    const items = [];
 
     for (const item of cart) {
-        const product = await getProductById(item.id); // Gọi hàm lấy thông tin sản phẩm
+        const product = await getProductById(item.id);
         if (product) {
             const subtotal = product.price * item.quantity;
             total += subtotal;
 
-            // Thêm thông tin sản phẩm vào mảng items
             items.push({
-                name: product.name, // Tên sản phẩm
-                quantity: item.quantity, // Số lượng
-                price: product.price, // Giá sản phẩm
-                subtotal: subtotal, // Thành tiền
+                name: product.name,
+                quantity: item.quantity,
+                price: product.price,
+                subtotal: subtotal,
             });
         }
     }
 
     // Lấy phí ship
     const shippingFee = calculateShippingFee(district);
-    const grandTotal = total + shippingFee; // Tổng tiền bao gồm phí ship
+    const grandTotal = total + shippingFee;
 
     // Tạo đối tượng đơn hàng
     const orderData = {
+        useremail, // Thêm email vào đơn hàng
         fullName,
         phone,
-        province:"Thành phố Hồ Chí Minh",
+        province: "Thành phố Hồ Chí Minh",
         district,
         ward,
         address,
-        items, // Lưu mảng items vào đơn hàng
-        total: grandTotal, // Lưu tổng tiền
-        shippingFee, // Lưu phí ship
-        createdAt: new Date(), // Thêm thời gian tạo đơn hàng
-        orderId: `ORDER-${Date.now()}`, // Tạo mã đơn hàng duy nhất
-        status: "Đang chờ tiếp nhận", // Trạng thái mặc định
+        items,
+        total: grandTotal,
+        shippingFee,
+        createdAt: new Date(),
+        orderId: `ORDER-${Date.now()}`,
+        status: "Đang chờ tiếp nhận",
         payment: "Thanh toán khi nhận hàng"
     };
 
-    // Gọi hàm lưu đơn hàng
+    // Lưu đơn hàng vào Firestore
     await saveOrder(orderData);
 }
+
   // Hàm tải danh sách tỉnh/thành
   async function loadProvinces() {
     try {   
