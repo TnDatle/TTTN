@@ -136,8 +136,6 @@ async function submitOrder() {
     const ward = document.getElementById("wardInput").value;
     const address = document.getElementById("addressInput").value;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const user = firebase.auth().currentUser; // Lấy thông tin người dùng hiện tại
-    const useremail = user ? user.email : null; // Lấy email của người dùng
 
      // Kiểm tra số điện thoại
      if (!validatePhoneNumber(phone)) {
@@ -171,7 +169,6 @@ async function submitOrder() {
 
     // Tạo đối tượng đơn hàng
     const orderData = {
-        useremail, 
         fullName,
         phone,
         province:"Thành phố Hồ Chí Minh",

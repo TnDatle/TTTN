@@ -45,7 +45,7 @@
                         <li>
                             <h4>Cấu Hình</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/views/Category/Gaming.html">So sánh cấu hình</a></li>
+                                <li id="compare-link"><a href="#">So sánh cấu hình</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -144,4 +144,13 @@
         </div>
     </div>  
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var link = document.getElementById('compare-link');
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/views/Category/Compare.html';
+        });
+    });
+</script>
 </html>

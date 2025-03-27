@@ -43,9 +43,9 @@
                             </ul>
                         </li>
                         <li>
-                            Cấu hình
+                            <h4>Cấu Hình</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/views/Category/Compare.html">So sánh cấu hình</a></li>
+                                <li id="compare-link"><a href="#">So sánh cấu hình</a></li>
                             </ul>
                         </li>
                     </ul>   
@@ -176,6 +176,14 @@
     </div>
 </section>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var link = document.getElementById('compare-link');
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/views/Category/Compare.html';
+        });
+    });
+
     const dots = document.querySelectorAll('.dot');
     const images = document.querySelectorAll('.aspect-ratio-169 img');
     let currentIndex = 0;
