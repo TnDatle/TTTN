@@ -52,10 +52,14 @@ async function fetchUserOrders(userEmail) {
             });
         }
 
-        const createStatusDropdown = (status) => {
+        const createStatusDropdown = (status, orderId) => {
             const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công", "Đã hủy"];
+            
+            // Kiểm tra nếu trạng thái là "Đã giao thành công" hoặc "Đã hủy", thì disable dropdown
+            const isDisabled = (status === "Đã giao thành công" || status === "Đã hủy") ? "disabled" : "";
+        
             return ` 
-                <select class="status-dropdown" data-order-id="${order.orderId}">
+                <select class="status-dropdown" data-order-id="${orderId}" ${isDisabled}>
                     ${statuses.map(option => ` 
                         <option value="${option}" ${option === status ? "selected" : ""}>
                             ${option}
@@ -63,7 +67,7 @@ async function fetchUserOrders(userEmail) {
                     `).join('')}
                 </select>
             `;
-        };
+        };        
 
         orderDiv.innerHTML = `
             <div class="order-header">

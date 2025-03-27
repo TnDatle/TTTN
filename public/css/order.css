@@ -2,8 +2,19 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
+    padding: 30px; /* Tăng khoảng cách lề */
 }
+
+.order-section {
+    width: 1200px; /* Giữ nội dung gọn hơn */
+    margin: 20px auto;
+    padding: 30px; /* Tăng padding */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Hiển thị thanh cuộn khi cần */
+}
+
 .container-orders {
     max-width: 800px;
     margin: auto;
@@ -12,32 +23,47 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
     text-align: center;
     color: #333;
+    font-size: 28px; /* Làm to tiêu đề */
+    margin-bottom: 25px;
 }
+
+/* --------- Danh sách đơn hàng --------- */
 .order {
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 2px solid #ddd; /* Viền to hơn */
+    border-radius: 10px;
     margin-bottom: 20px;
-    padding: 15px;
+    padding: 20px; /* Tăng khoảng cách bên trong */
     background: #f9f9f9;
-    text-align: left;
+    transition: all 0.3s ease;
+    font-size: 18px; /* Chữ trong đơn hàng to hơn */
 }
+
+
+/* Header đơn hàng */
 .order-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    font-size: 20px; /* Tăng font */
+    margin-bottom: 12px;
 }
+
 .order-header h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 22px; /* Tăng cỡ chữ ID đơn hàng */
     color: #007BFF;
 }
+
 .order-header .status {
     font-weight: bold;
+    font-size: 18px;
+    color: #007bff;
 }
+
 .product-list {
     margin-top: 10px;
     display: flex; /* Sử dụng flexbox để căn chỉnh sản phẩm */
@@ -145,4 +171,69 @@ button[id^="confirm-cancel-btn-"],button[id^="cancel-cancel-btn-"]:hover {
 
 button[id^="confirm-cancel-btn-"],button[id^="cancel-cancel-btn-"]:active {
     background-color: #004085;  /* Màu nền khi nhấn */
+}
+
+
+.order-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.order-tabs button {
+    padding: 15px 25px; /* Tăng kích thước nút */
+    font-size: 20px; /* Chữ to hơn */
+    font-weight: bold;
+    border: 2px solid #007bff;
+    background-color: #ddd;
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.order-tabs button.active {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.1); /* Hiệu ứng phóng to nhẹ */
+}
+
+/* --------- Tăng kích thước vùng nội dung --------- */
+.order-content {
+    display: none;
+    padding: 20px; /* Thêm khoảng cách bên trong */
+    font-size: 18px; /* Chữ trong nội dung lớn hơn */
+}
+
+.order-content.active {
+    display: block;
+}
+
+/* --------- Responsive --------- */
+@media (max-width: 768px) {
+    .order {
+        padding: 15px;
+    }
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-header h2 {
+        font-size: 20px;
+    }
+
+    .product-list span {
+        font-size: 16px;
+    }
+
+    .total {
+        font-size: 18px;
+    }
+
+    .order-tabs button {
+        font-size: 18px;
+        padding: 12px 20px;
+    }
 }

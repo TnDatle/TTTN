@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="/public/css/style.css">
     <link rel="stylesheet" href="/public/css/order.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/public/js/Checklogin.js"></script>
+    <script type="module" src="/public/js/Checklogin.js"></script>
+    <script type="module" src="/public/js/Orders.js"></script>
+    <script type="module" src="/public/js/Cart.js"></script>
 </head>
 <body>
     <!--------------------------------- Menu chính ---------------------->
@@ -15,32 +17,31 @@
         <div class="container">
             <div class="row">
                 <div class="top-logo">
-                    <a href="/home.html"><img src="/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
+                    <a href="../home.html"><img src="../../public/img/logo.png" alt=""></a>
                 </div>
                 <div class="top-menu-items">
                     <ul>
-                        <li><a href="/home.html">Home</a></li>
+                        <li><a class="home" href="/views/home.html">Home</a></li>
                         <li>
-                            Giáo khoa tham khảo
+                            <h4>Laptop</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/manga-comic.html">Manga - Comic</a></li>
-                                <li><a href="/html-cartegory/tamly-kinangsong.html">Tâm lý - Kĩ năng sống</a></li>
-                                <li><a href="/html-cartegory/sachhocngoaingu.html">Sách học ngoại ngữ</a></li>
+                                <li><a href="/views/Category/Gaming.html">Laptop Gaming</a></li>
+                                <li><a href="/views/Category/Laptop.html">laptop Văn Phòng</a></li>
+                                <li><a href="/views/Category/Workstation.html">Workstation Laptop</a></li>
                             </ul>
                         </li>
                         <li>
-                            VPP - Dụng cụ học sinh
+                            <h4>Phụ Kiện</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/but-viet.html">Bút - Viết</a></li>
-                                <li><a href="/html-cartegory/sanphamvegiay.html">Sản phẩm về giấy</a></li>
-                                <li><a href="/html-cartegory/dungcuvanphong.html">Dụng cụ văn phòng</a></li>
+                                <li><a href="/views/Category/Gaming.html">Chuột</a></li>
+                                <li><a href="/views/Category/Gaming.html">Bàn Phím</a></li>
+                                <li><a href="/views/Category/Gaming.html">Tai Nghe</a></li>
                             </ul>
                         </li>
                         <li>
-                            Đồ chơi
+                            <h4>Cấu Hình</h4>
                             <ul class="top-menu-item">
-                                <li><a href="/html-cartegory/dochoigiaoduc.html">Đồ chơi giáo dục</a></li>
-                                <li><a href="/html-cartegory/mohinhcacloai.html">Mô hình các loại</a></li>
+                                <li id="compare-link"><a href="#">So sánh cấu hình</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -48,43 +49,44 @@
                 <div class="top-menu-icons">
                     <ul>
                         <li>
-                            <div class="search-bar" style="display: none;">
+                            <div class="search-bar">
                                 <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
                                 <button id="searchButton" class="fas fa-search"></button>
                             </div>
                         </li>
-                        <li><a href="/login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
-                        <li><a href="/html-cart/cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
+                        <li><a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="/views/Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 <!-------------------------- Danh sách đơn hàng --------------------->
-    <section class="order-section">
-        <section class="container-orders">
-            <h1>Danh sách đơn hàng của tôi</h1>
-            <div class="order">
-                <div class="order-header">
-                    <h2>ID Đơn hàng: 001</h2>
-                    <span class="status">Đang xử lý</span>
-                </div>
-                <div class="product-list">
-                    <div class="product">
-                        <span>Tên sản phẩm 1</span>
-                        <span>Số lượng: 2</span>
-                        <span>Thành tiền: 0 đ</span>
-                    </div>
-                    <div class="product">
-                        <span>Tên sản phẩm 2</span>
-                        <span>Số lượng: 1</span>
-                        <span>Thành tiền: 0 đ</span>
-                    </div>
-                </div>
-                <div class="total">Tổng tiền: 0 đ</div>
-            </div>          
-        </section>
-    </section>
+<section class="order-section">
+    <h1>Danh sách đơn hàng</h1>
+
+    <!---------------- Đơn hàng hiện tại ---------------->
+    <div class="order-tabs">
+        <button id="current-orders-tab" class="active">Đơn hàng hiện tại</button>
+        <button id="order-history-tab">Lịch sử đặt hàng</button>
+    </div>
+    
+    <!-- Đơn hàng hiện tại -->
+    <div id="current-orders" class="order-content active">
+        <h2>Đơn hàng hiện tại</h2>
+        <div id="current-orders-container">
+            <!-- Đơn hàng hiện tại sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Lịch sử đơn hàng -->
+    <div id="order-history" class="order-content">
+        <h2>Lịch sử đặt hàng</h2>
+        <div id="order-history-container">
+            <!-- Lịch sử đơn hàng sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+    </div>       
+</section>
 <!------------------------------------- FOOTER ------------------------------>
 <section class="footer">
     <div class="footer-container">
