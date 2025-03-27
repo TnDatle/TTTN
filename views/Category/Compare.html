@@ -6,12 +6,10 @@
     <title>So sánh cấu hình laptop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../public/css/compare.css">
-    <script type="module" src="../../routes/Compare.js"defer></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <script type="module" src="../../routes/Firebase-Config.js"></script>
-    <script src="../../public/js/function.js"></script>
-    <link rel="stylesheet" href="../home.html">
+    <script type="module" src="../../routes/Compare.js"></script>
 </head>
 <body>
     <div class="container">
@@ -20,7 +18,7 @@
             <div class="compare-config-container">
                 <div class="compare-config-left">
                     <h3>Laptop 1</h3>
-                    <img id="laptop-1-image" alt="Hình ảnh laptop 1" >
+                    <img id="laptop-1-image" alt="Hình ảnh laptop 1">
                     <ul>
                         <li>CPU: <span id="cpu-1"></span></li>
                         <li>RAM: <span id="ram-1"></span></li>
@@ -40,18 +38,53 @@
                 </div>
             </div>
         </div>
+        
         <div class="choose-laptop">
             <h2>Chọn laptop để so sánh</h2>
             <select id="laptop-1">
                 <option value="">Chọn laptop 1</option>
-                <!-- Danh sách laptop sẽ được hiển thị tại đây -->
             </select>
             <select id="laptop-2">
                 <option value="">Chọn laptop 2</option>
-                <!-- Danh sách laptop sẽ được hiển thị tại đây -->
             </select>
             <button id="compare-btn">So sánh</button>
         </div>
+
+        <!-- Khu vực hiển thị phản hồi từ AI -->
+        <div class="ai-response">
+            <h2>Nhận xét của AI</h2>
+            <div id="ai-response">Chưa có dữ liệu</div>
+        </div>
     </div>
+
+    <script src="../../public/js/function.js"></script>
+    <script>
+        document.getElementById("compare-btn").addEventListener("click", async () => {
+            const laptop1 = document.getElementById("laptop-1").value;
+            const laptop2 = document.getElementById("laptop-2").value;
+            const aiResponseDiv = document.getElementById("ai-response");
+
+            if (!laptop1 || !laptop2) {
+                aiResponseDiv.innerHTML = "⚠️ Vui lòng chọn cả hai laptop!";
+                return;
+            }
+
+            aiResponseDiv.innerHTML = "⏳ Đang phân tích...";
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/compare", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ laptop1, laptop2 })
+                });
+
+                const result = await response.json();
+                aiResponseDiv.innerHTML = `<strong>📢 AI nhận xét:</strong> ${result.message}`;
+            } catch (error) {
+                console.error("Lỗi khi gọi API:", error);
+                aiResponseDiv.innerHTML = "❌ Lỗi khi lấy dữ liệu từ AI.";
+            }
+        });
+    </script>
 </body>
 </html>
