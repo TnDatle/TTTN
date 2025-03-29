@@ -141,8 +141,6 @@ function sendMessage() {
 // Hàm trả lời tự động từ bot dựa trên câu hỏi của người dùng
 function autoReply(userInput) {
     const messageArea = document.getElementById("messages");
-
-<<<<<<< HEAD
     let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang Facebook chính thức";
         // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
         if (userInput.toLowerCase().includes("laptop bán chạy") || userInput.toLowerCase().includes("laptop hot") || userInput.toLowerCase().includes("best seller") || userInput.toLowerCase().includes("laptop tốt")) {
@@ -158,24 +156,6 @@ function autoReply(userInput) {
         } else if (userInput.toLowerCase().includes("thuê laptop") || userInput.toLowerCase().includes("mượn laptop") || userInput.toLowerCase().includes("rent") || userInput.toLowerCase().includes("mướn laptop")) {
             botResponse = "Shop chỉ bán laptop chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
         }
-=======
-    let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang facebook chính thức";
-    // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
-    if (userInput.toLowerCase().includes("laptop bán chạy") || userInput.toLowerCase().includes("laptop hot") || userInput.toLowerCase().includes("best seller") || userInput.toLowerCase().includes("máy tính hot")) {
-        botResponse = "Laptop bán chạy nhất hiện nay là 'Dell XPS 13' với hiệu năng mạnh mẽ và thiết kế cao cấp. (Bot Reply)";
-    } else if (userInput.toLowerCase().includes("bảo hành") || userInput.toLowerCase().includes("đổi trả")) {
-        botResponse = "Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu laptop hoặc phụ kiện bị lỗi. (Bot Reply)";
-    } else if (userInput.toLowerCase().includes("laptop chính hãng") || userInput.toLowerCase().includes("hợp lệ") || userInput.toLowerCase().includes("uy tín")) {
-        botResponse = "Tất cả laptop bán tại DHH Store đều là sản phẩm chính hãng, cam kết chất lượng. (Bot Reply)";
-    } else if (userInput.toLowerCase().includes("ship") || userInput.toLowerCase().includes("có ship không ạ ?") || userInput.toLowerCase().includes("giao hàng")) {
-        botResponse = "Thời gian ship hàng là 2-3 ngày trong TP.HCM và 4-5 ngày ở các tỉnh thành khác kể từ khi nhận được đơn hàng. (Bot Reply)";
-    } else if (userInput.toLowerCase().includes("chào shop") || userInput.toLowerCase().includes("hi") || userInput.toLowerCase().includes("hello") || userInput.toLowerCase().includes("dạ chào shop")) {
-        botResponse = "Chào bạn, tôi là bot của shop bán laptop DHH Store, mọi câu trả lời của tôi được lập trình sẵn. Nếu cần tư vấn riêng hãy liên hệ trang Facebook cá nhân của shop.";
-    } else if (userInput.toLowerCase().includes("mượn laptop") || userInput.toLowerCase().includes("thuê laptop") || userInput.toLowerCase().includes("rent") || userInput.toLowerCase().includes("mướn laptop")) {
-        botResponse = "Shop chỉ bán laptop chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
-    }    
-    
->>>>>>> e1ddcb7a761928282afe49cc8a27bc3b4d2a704b
     // Tạo tin nhắn bot trả lời
     const botMessage = document.createElement("div");
     botMessage.classList.add("bot-message");

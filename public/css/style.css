@@ -1523,6 +1523,7 @@ a {
     z-index: 10;
     display: flex;
     justify-content: center;
+    margin-left: 30px;
     align-items: center;
     overflow: hidden;
 }
@@ -1534,6 +1535,7 @@ a {
     width: 15%; /* Đặt độ rộng linh hoạt */
     z-index: 10;
     display: flex;
+    margin-right: 100px;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -2268,4 +2270,14 @@ tr:nth-child(even) {
     }
 }
 
-
+.payment-class .cash-method,
+.payment-class .momo-method,
+.payment-class .bank-method,
+.payment-class .vnpay-method{
+    display: flex; 
+    align-items: center; 
+    margin-top: 0; 
+    margin-right: 170px;
+    margin-bottom: 0; 
+    padding-top:10px
+}

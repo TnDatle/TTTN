@@ -127,9 +127,9 @@ function validatePhoneNumber(phone) {
 }
 
 
+
 // Hàm để xử lý khi người dùng nhấn nút thanh toán
 async function submitOrder() {
-    // Lấy thông tin người dùng đang đăng nhập từ Firebase Auth
     const currentUser = auth.currentUser;
 
     if (!currentUser) {
@@ -137,23 +137,34 @@ async function submitOrder() {
         return;
     }
 
-    const useremail = currentUser.email; // Lấy email của người dùng
-
-    const fullName = document.getElementById("fullName").value;
-    const phone = document.getElementById("phone").value;
+    const useremail = currentUser.email;
+    const fullName = document.getElementById("fullName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
     const province = document.getElementById("provinceDropdown").value;
     const district = document.getElementById("districtDropdown").value;
-    const ward = document.getElementById("wardInput").value;
-    const address = document.getElementById("addressInput").value;
+    const ward = document.getElementById("wardInput").value.trim();
+    const address = document.getElementById("addressInput").value.trim();
+    const paymentMethod = document.querySelector('input[name="payment"]:checked');
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Kiểm tra số điện thoại
-    if (!validatePhoneNumber(phone)) {
-        alert("Số điện thoại phải có 10 số.");
+    // Kiểm tra xem tất cả các ô nhập liệu đã được điền chưa
+    if (!fullName || !phone || !province || !district || !ward || !address || !paymentMethod) {
+        alert("Vui lòng nhập đầy đủ thông tin giao hàng và chọn phương thức thanh toán!");
         return;
     }
 
-    // Tính tổng tiền và tạo danh sách sản phẩm
+    // Kiểm tra số điện thoại hợp lệ
+    if (!validatePhoneNumber(phone)) {
+        alert("Số điện thoại không hợp lệ! Vui lòng nhập số điện thoại có 10 số.");
+        return;
+    }
+
+    // Kiểm tra giỏ hàng có sản phẩm không
+    if (cart.length === 0) {
+        alert("Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi đặt hàng.");
+        return;
+    }
+
     let total = 0;
     const items = [];
 
@@ -162,7 +173,6 @@ async function submitOrder() {
         if (product) {
             const subtotal = product.price * item.quantity;
             total += subtotal;
-
             items.push({
                 name: product.name,
                 quantity: item.quantity,
@@ -178,7 +188,7 @@ async function submitOrder() {
 
     // Tạo đối tượng đơn hàng
     const orderData = {
-        useremail, // Thêm email vào đơn hàng
+        useremail,
         fullName,
         phone,
         province: "Thành phố Hồ Chí Minh",
@@ -191,7 +201,7 @@ async function submitOrder() {
         createdAt: new Date(),
         orderId: `ORDER-${Date.now()}`,
         status: "Đang chờ tiếp nhận",
-        payment: "Thanh toán khi nhận hàng"
+        payment: paymentMethod.value // Lấy giá trị của radio button
     };
 
     // Lưu đơn hàng vào Firestore
