@@ -185,7 +185,10 @@ body {
 #laptopForm {
     flex: 1; /* Form chiếm một phần nhỏ hơn */
     max-width: 400px; /* Giới hạn chiều rộng của form */
+    max-height: 900px; /* Giới hạn chiều cao của form */
+    overflow-y: auto; /* Bật thanh cuộn dọc nếu nội dung vượt quá */
 }
+
 
 #laptopForm h2 {
     text-align: center;

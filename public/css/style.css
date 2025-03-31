@@ -1514,44 +1514,59 @@ a {
     margin: 30px 0;
 }
 
-/*------------------------------- Quảng cQUẢNG CÁO 2 BÊN website -------------------*/
-.ads-left {
-    position: absolute;
-    left: 0;
-    top: 10rem; /* Sử dụng đơn vị rem để thay thế px */
-    width: 15%; /* Độ rộng theo phần trăm để co giãn theo thiết bị */
+/*------------------------------- Quảng CÁO 2 BÊN website -------------------*/
+.ads-left,
+.ads-right {
+    position: absolute; /* Giữ cố định khi cuộn trang */
+    top: 10rem; /* Giữ vị trí đồng đều */
+    width: 15%; /* Chiều rộng linh hoạt */
+    max-width: 200px; /* Giới hạn chiều rộng tối đa */
     z-index: 10;
     display: flex;
     justify-content: center;
-    margin-left: 30px;
     align-items: center;
     overflow: hidden;
 }
 
+/* Căn trái và phải đều nhau */
+.ads-left {
+    left: 10px; /* Khoảng cách đều nhau */
+}
+
 .ads-right {
-    position: absolute;
-    right: 0;
-    top: 10rem;
-    width: 15%; /* Đặt độ rộng linh hoạt */
-    z-index: 10;
-    display: flex;
-    margin-right: 100px;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    right: 10px; /* Khoảng cách đều nhau */
 }
 
 .ads-left img,
 .ads-right img {
-    width: 100%; /* Luôn chiếm hết không gian container */
-    height: auto; /* Tự động giữ tỉ lệ */
-    object-fit: contain; /* Đảm bảo ảnh không méo */
+    width: 100%; /* Chiếm toàn bộ khung chứa */
+    height: auto; /* Giữ tỉ lệ ảnh */
+    object-fit: contain; /* Đảm bảo không bị méo ảnh */
+}
+
+/* Điều chỉnh cho màn hình nhỏ hơn */
+@media (max-width: 1024px) {
+    .ads-left,
+    .ads-right {
+        width: 12%;
+        max-width: 150px; /* Giới hạn kích thước nhỏ hơn */
+        top: 8rem; /* Điều chỉnh vị trí */
+    }
 }
 
 @media (max-width: 768px) {
-    .ads-left, .ads-right {
-        width: 10%; /* Giảm độ rộng trên màn hình nhỏ */
-        top: 5rem; /* Điều chỉnh vị trí */
+    .ads-left,
+    .ads-right {
+        width: 10%; /* Giảm kích thước */
+        max-width: 100px;
+        top: 5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ads-left,
+    .ads-right {
+        display: none; /* Ẩn quảng cáo trên màn hình quá nhỏ */
     }
 }
 
@@ -2023,17 +2038,16 @@ tr:nth-child(even) {
 /*----------------------------------- PRODUCT CARD   -------------------------    ---*/
 /* Style chung cho danh sách sản phẩm */
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Chia 4 cột đều nhau */
+    gap: 15px; /* Khoảng cách giữa các sản phẩm */
+    margin-left: 250px;
+    padding: 10px;
+    justify-content: center;
 }
 
 /* Thẻ chứa sản phẩm */
 .product-card {
-    width: calc(25% - 15px);
-    max-width: 220px;
-    text-align: center;
     background: white;
     padding: 10px;
     border-radius: 10px;
@@ -2042,21 +2056,33 @@ tr:nth-child(even) {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 /* Hình ảnh sản phẩm */
-.product-image {
+.product-card img {
     width: 100%;
-    height: 160px; /* Cố định chiều cao ảnh */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 180px; /* Định kích thước cố định giúp ảnh không bị méo */
+    object-fit: contain;
 }
 
-.product-image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Đảm bảo ảnh không bị cắt méo */
+/* Responsive: Hiển thị ít hơn 4 sản phẩm trên màn hình nhỏ */
+@media (max-width: 1024px) {
+    .product-list {
+        grid-template-columns: repeat(3, 1fr); /* 3 sản phẩm trên 1 hàng */
+    }
+}
+
+@media (max-width: 768px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 sản phẩm trên 1 hàng */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-list {
+        grid-template-columns: repeat(1, 1fr); /* 1 sản phẩm trên 1 hàng */
+    }
 }
 
 /* Chứa nội dung bên dưới ảnh */
@@ -2124,6 +2150,7 @@ tr:nth-child(even) {
     gap: 30px;         /* Tăng khoảng cách giữa các sản phẩm */
     padding: 20px;
     white-space: nowrap;
+    margin-left: 50px;
 }
 
 /* 🔹 Mỗi sản phẩm */
@@ -2280,4 +2307,16 @@ tr:nth-child(even) {
     margin-right: 170px;
     margin-bottom: 0; 
     padding-top:10px
+}
+
+
+.cartegory .top-banner {
+    display: flex;
+    padding-right: 20px;
+    margin-bottom: 10px;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+.cartegory .top-banner img {
+    width: 65%;
 }
