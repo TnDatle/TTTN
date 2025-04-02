@@ -123,7 +123,10 @@
             </div>
         
             <label for="image">Chọn ảnh sản phẩm:</label>
-            <input type="file" id="image" accept="image/*"><br>
+            <input type="file" id="images" accept="image/*" multiple>
+            
+            <label>Ảnh hiện tại:</label><br>
+            <div id="imagePreview"></div>
         
             <label>Ảnh hiện tại:</label><br>
             <input type="text" id="imageURL" placeholder="URL Ảnh" readonly><br>
@@ -163,6 +166,8 @@
                             <input type="text" id="battery" placeholder="Thời lượng pin (giờ)"><br>
                         </div>
                         <input type="number" id="price" placeholder="Giá (VND)" required><br>
+                        <input type="number" id="sold" placeholder="Đã bán" required><br>
+                        <input type="number" id="rating" placeholder="Đánh giá (1-5)" min="1" max="5" required><br>
                     `;
                 } else if (selectedType === "keyboard") {
                     fields = `
@@ -172,6 +177,8 @@
                         <input type="text" id="connection" placeholder="Kết nối (Wired/Wireless)" required><br>
                         <input type="text" id="led" placeholder="LED RGB (Có/Không)" required><br>
                         <input type="number" id="price" placeholder="Giá (VND)" required><br>
+                        <input type="number" id="sold" placeholder="Đã bán" required><br>
+                        <input type="number" id="rating" placeholder="Đánh giá (1-5)" min="1" max="5" required><br>
                     `;
                 } else if (selectedType === "mouse") {
                     fields = `
@@ -181,6 +188,8 @@
                         <input type="text" id="connection" placeholder="Kết nối (Wired/Wireless)" required><br>
                         <input type="text" id="buttons" placeholder="Số nút bấm" required><br>
                         <input type="number" id="price" placeholder="Giá (VND)" required><br>
+                        <input type="number" id="sold" placeholder="Đã bán" required><br>
+                        <input type="number" id="rating" placeholder="Đánh giá (1-5)" min="1" max="5" required><br>
                     `;
                 }
         

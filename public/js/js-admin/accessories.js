@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
 import { getFirestore, doc, getDoc, deleteDoc, updateDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js";
 
 // 🔥 Cấu hình Firebase
 const firebaseConfig = {
@@ -31,11 +31,12 @@ async function loadProductList() {
             const product = doc.data();
             const card = document.createElement("div");
             card.classList.add("product-card");
-
+            
+            const imageUrl = product.imageURLs && product.imageURLs.length > 0 ? product.imageURLs[0] : "placeholder.jpg";
+            
             card.innerHTML = `
-                <img src="${product.imageURL || 'placeholder.jpg'}" alt="${product.name}">
+                <img src="${imageUrl}" alt="${product.name}">
                 <h3>${product.name}</h3>
-                <p>${product.description}</p>
                 <button class="edit-btn" data-id="${doc.id}">Sửa</button>
                 <button class="delete-btn" data-id="${doc.id}">Xóa</button>
             `;
@@ -53,6 +54,7 @@ async function loadProductList() {
         console.error("Lỗi khi tải danh sách sản phẩm:", error);
     }
 }
+
 
 // 🔹 Chỉnh sửa sản phẩm
 async function editProduct(id) {
@@ -77,63 +79,61 @@ function setProductDetails(product, id) {
             document.getElementById(key).value = product[key];
         }
     });
-    document.getElementById('productImage').src = product.imageURL || "";
+    document.getElementById('productImageContainer').innerHTML = product.imageURLs?.map(url => `<img src="${url}" alt="Ảnh sản phẩm">`).join('') || "";
 }
 
 async function saveProduct(event) {
     event.preventDefault();
 
     const productIdInput = document.getElementById('productId').value.trim();
-    const productType = document.getElementById("productType").value; // Lấy loại sản phẩm
-
+    const productType = document.getElementById("productType").value;
+    
     if (!productIdInput) {
         alert("Vui lòng nhập ID sản phẩm!");
         return;
     }
-
+    
     const productData = {
         name: document.getElementById("name")?.value || "",
         description: document.getElementById("description")?.value || "",
         price: parseFloat(document.getElementById("price")?.value) || 0,
         category: productType
     };
-
-    // Lấy các trường riêng theo loại sản phẩm
-    if (productType === "headphone") {
-        productData.brand = document.getElementById("brand")?.value || "";
-        productData.type = document.getElementById("type")?.value || "";
-        productData.connection = document.getElementById("connection")?.value || "";
-        productData.noiseCancelling = document.getElementById("noiseCancelling")?.value || "";
-        if (productData.connection === "wireless" || productData.connection === "bluetooth") {
-            productData.battery = document.getElementById("battery")?.value || "";
-        }
-    } else if (productType === "keyboard") {
-        productData.brand = document.getElementById("brand")?.value || "";
-        productData.switchType = document.getElementById("switchType")?.value || "";
-        productData.connection = document.getElementById("connection")?.value || "";
-        productData.led = document.getElementById("led")?.value || "";
-    } else if (productType === "mouse") {
-        productData.brand = document.getElementById("brand")?.value || "";
-        productData.dpi = document.getElementById("dpi")?.value || "";
-        productData.connection = document.getElementById("connection")?.value || "";
-        productData.buttons = document.getElementById("buttons")?.value || "";
-    }
-
-    // Xử lý upload ảnh nếu có
+    
+    const imageFiles = document.getElementById('images').files;
+    let imageURLs = [];
+    
     try {
-        const imageFile = document.getElementById('image').files[0];
-
-        if (imageFile) {
-            const storageRef = ref(storage, `images/accessories/${Date.now()}_${imageFile.name}`);
-            await uploadBytes(storageRef, imageFile);
-            productData.imageURL = await getDownloadURL(storageRef);
+        for (let file of imageFiles) {
+            const storageRef = ref(storage, `images/accessories/${Date.now()}_${file.name}`);
+            await uploadBytes(storageRef, file);
+            const url = await getDownloadURL(storageRef);
+            imageURLs.push(url);
         }
-
+        
+        if (imageURLs.length > 0) {
+            productData.imageURLs = imageURLs;
+        }
+        
         await setDoc(doc(db, "products", "accessories", "items", productIdInput), productData);
         alert("Phụ kiện đã được lưu!");
         window.location.href = 'phukien.html';
     } catch (error) {
         console.error("Lỗi khi lưu sản phẩm:", error);
+    }
+}
+
+
+// 🔹 Xóa ảnh khỏi Firebase Storage
+async function deleteImageFromStorage(imageURL) {
+    if (!imageURL) return;
+    try {
+        // Giả sử imageURL đã được cung cấp là đường dẫn hợp lệ
+        const imageRef = ref(storage, imageURL);
+        await deleteObject(imageRef);
+        console.log("🗑 Ảnh đã được xóa khỏi Firebase Storage:", imageURL);
+    } catch (error) {
+        console.error("❌ Lỗi khi xóa ảnh từ Storage:", error);
     }
 }
 
@@ -147,13 +147,31 @@ async function deleteProduct(id) {
     if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
 
     try {
-        await deleteDoc(doc(db, "products", "accessories", "items", id));
-        alert("Sản phẩm đã được xóa.");
-        loadProductList();
+        const productRef = doc(db, "products", "accessories", "items", id);
+        const productSnap = await getDoc(productRef);
+
+        if (productSnap.exists()) {
+            const productData = productSnap.data();
+            const imageURLs = productData.imageURLs || [];
+
+            // Xóa tất cả ảnh khỏi Firebase Storage trước khi xóa sản phẩm
+            await Promise.all(imageURLs.map(deleteImageFromStorage)); // Xóa ảnh liên quan
+
+            // Xóa sản phẩm khỏi Firestore
+            await deleteDoc(productRef);
+            alert("Sản phẩm phụ kiện đã được xóa.");
+        } else {
+            alert("Sản phẩm không tồn tại.");
+        }
+
+        loadProductList(); // Tải lại danh sách sản phẩm
     } catch (error) {
         console.error("Lỗi khi xóa sản phẩm:", error);
     }
 }
+
+
+
 
 // 📌 Lắng nghe sự kiện khi DOM đã tải xong
 document.addEventListener("DOMContentLoaded", () => {
