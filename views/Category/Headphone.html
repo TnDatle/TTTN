@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecongnghe-DHH Store</title>
+    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../home.html">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script type="module" src="../../routes/Firebase-Config.js"></script>
+    <script type="module" src="../../routes/Product.js"defer></script>
+    <script type="module" src="/public/js/Checklogin.js" ></script>
+    <script type="module">
+        import { displayProducts } from '../../routes/Product.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts('workstation'); // Lấy danh mục gaming
+        });
+    </script>
+</head>
+<body>
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="top-logo">
+                    <a href="../home.html"><img src="../../public/img/logo.png" alt=""></a>
+                </div>
+                <div class="top-menu-items">
+                    <ul>
+                        <li><a class="home" href="/views/home.html">Home</a></li>
+                        <li>
+                            <h4>Laptop</h4>
+                            <ul class="top-menu-item">
+                                <li><a href="/views/Category/Gaming.html">Laptop Gaming</a></li>
+                                <li><a href="/views/Category/Laptop.html">laptop Văn Phòng</a></li>
+                                <li><a href="/views/Category/Workstation.html">Workstation Laptop</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>Phụ Kiện</h4>
+                            <ul class="top-menu-item">
+                                <li><a href="/views/Category/Mouse.html">Chuột</a></li>
+                                <li><a href="/views/Category/Keyboard.html">Bàn Phím</a></li>
+                                <li><a href="/views/Category/Headphone.html">Tai Nghe</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>Cấu Hình</h4>
+                            <ul class="top-menu-item">
+                                <li><a href="/views/Category/Compare.html" target="_self">So sánh cấu hình</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="top-menu-icons">
+                    <ul>
+                        <li>
+                            <div class="search-bar">
+                                <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
+                                <button id="searchButton" class="fas fa-search"></button>
+                            </div>
+                        </li>
+                        <li><a href="../views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="/views/Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+<!------------------ Cartegory ------------------->
+<section class="cartegory">
+    <div class="ads-left">
+        <a href=""><img src="/public/img/leftads2.png" alt="Ad Left"></a>
+    </div>
+    <div class="ads-right">
+        <a href=""><img src="/public/img/rightads2.png" alt="Ad Right"></a>
+    </div>
+    <div class="container">
+        <div class="cartegory-top row">
+            <p><a href="/home.html" style="color: black;">Trang chủ</a></p> <span>&#10230; </span> <p>Laptop</p> <span>&#10230; </span> <p>Laptop Văn Phòng</p>
+        </div>
+    </div>
+    <div class="top-banner">
+        <img src="/public/img/banner-laptop-gaming.webp">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="cartegory-right">
+                <div class="cartegory-right-top-item">
+                    <p>Laptop Workstation </p>
+                </div>
+                <div class="cartegory-right-top-item">
+                    <select id="priceDropdown">
+                        <option value="">Phân loại giá</option>
+                        <option value="low">Dưới 10.000.000đ</option>
+                        <option value="medium">Từ 10.000.000đ - 15.000.000đ</option>
+                        <option value="high">Trên 15.000.000đ</option>
+                    </select>
+                </div>       
+                <div class="filter-bar">
+                    <select>
+                        <option value="">Hãng</option>
+                        <option value="dell">Dell</option>
+                        <option value="hp">HP</option>
+                        <option value="asus">Asus</option>
+                    </select>
+                    <select>
+                        <option value="">CPU</option>
+                        <option value="intel">Intel Xeon</option>
+                        <option value="amd">AMD Threadripper</option>
+                    </select>
+                    <select>
+                        <option value="">Kích thước màn hình</option>
+                        <option value="13">13 inch</option>
+                        <option value="15">15 inch</option>
+                        <option value="17">17 inch</option>
+                    </select>
+                    <select>
+                        <option value="">RAM</option>
+                        <option value="16">16GB</option>
+                        <option value="32">32GB</option>
+                        <option value="64">64GB</option>
+                    </select>
+                    <select>
+                        <option value="">SSD</option>
+                        <option value="256">256GB</option>
+                        <option value="512">512GB</option>
+                        <option value="1tb">1TB</option>
+                    </select>
+                    <select>
+                        <option value="">VGA</option>
+                        <option value="quadro">Nvidia Quadro</option>
+                        <option value="radeon">Radeon Graphics</option>
+                    </select>
+                </div>                    
+                <div class="product-list"></div> <!-- Sản phẩm sẽ được hiển thị tại đây -->
+        </div>
+    </div>
+    <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">
+        <i class="fa-solid fa-comment-medical"></i>
+        <span class="wave"></span>
+        <span class="wave"></span>
+        <span class="wave"></span>
+    </div>
+    <div id="chatbox" class="chatbox">
+        <div class="chatbox-header">
+            <h1>Tư vấn khách hàng</h1>
+            <button class="close-btn" onclick="toggleChat()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="messages" class="messages"></div>
+        <div id="questions" class="questions"></div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Nhập câu hỏi của bạn....">
+            <button id="sendBtn" onclick="sendMessage()">Gửi</button>
+        </div>
+    </div>
+ </section>
+  
+<!-------------------- footer --------------------->
+<section class="footer">
+    <div class="footer-container">
+        <p>Truy cập Fanpage <a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank">ĐHH Computer</a></p>
+        <div class="app-google">
+            <a href="https://www.apple.com/app-store/" target="_blank"><img src="" alt=""></a>
+            <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="" alt=""></a>
+        </div>
+        <div class="footer-items">
+            <li><a href="http://online.gov.vn" target="_blank"><img src="/public/img/bct.png" alt="" ></a></li>
+            <li><a href="tel:0797268602">Liên hệ</a></li>
+            <li><a href="">Giới thiệu</a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=bookhavenstoresince2024@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>
+        </div>
+        <div class="footer-text">
+            <p></p>
+            Địa chỉ đăng ký: 18A Cộng Hòa, P.13, Q.Tân Bình, TP.HCM</p>
+            Đặt hàng online: 02820124323
+        </div>
+        <div class="footer-bottom">
+            @ DHH Laptop Store by BOYS Studio
+        </div>
+    </div>
+</section>
+</body>
+</html>
