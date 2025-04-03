@@ -610,7 +610,7 @@ a {
     font-size: 12px;
 }
 
-.filter-bar {
+.filter-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -619,7 +619,7 @@ a {
     align-items: center;
 }
 
-.filter-bar button {
+.filter-container button {
     display: flex;
     align-items: center;
     padding: 8px 12px;
@@ -630,7 +630,7 @@ a {
     font-size: 14px;
 }
 
-.filter-bar select {
+.filter-container select {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -639,7 +639,7 @@ a {
     cursor: pointer;
 }
 
-.filter-bar select :hover {
+.filter-container select:hover {
     color: #007bff;
 }
 
