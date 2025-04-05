@@ -90,51 +90,18 @@
         <div class="row">
             <div class="cartegory-right">
                 <div class="cartegory-right-top-item">
-                    <p>Bàn Phím </p>
-                </div>
-                <div class="cartegory-right-top-item">
-                    <select id="priceDropdown">
-                        <option value="">Phân loại giá</option>
-                        <option value="low">Dưới 10.000.000đ</option>
-                        <option value="medium">Từ 10.000.000đ - 15.000.000đ</option>
-                        <option value="high">Trên 15.000.000đ</option>
-                    </select>
-                </div>       
-                <div class="filter-bar">
-                    <select>
-                        <option value="">Hãng</option>
-                        <option value="dell">Dell</option>
-                        <option value="hp">HP</option>
-                        <option value="asus">Asus</option>
-                    </select>
-                    <select>
-                        <option value="">Switch</option>
-                        <option value="intel">Intel Xeon</option>
-                        <option value="amd">AMD Threadripper</option>
-                    </select>
-                    <select>
-                        <option value="">Kích thước màn hình</option>
-                        <option value="13">13 inch</option>
-                        <option value="15">15 inch</option>
-                        <option value="17">17 inch</option>
-                    </select>
-                    <select>
-                        <option value="">RAM</option>
-                        <option value="16">16GB</option>
-                        <option value="32">32GB</option>
-                        <option value="64">64GB</option>
-                    </select>
-                    <select>
-                        <option value="">SSD</option>
-                        <option value="256">256GB</option>
-                        <option value="512">512GB</option>
-                        <option value="1tb">1TB</option>
-                    </select>
-                    <select>
-                        <option value="">VGA</option>
-                        <option value="quadro">Nvidia Quadro</option>
-                        <option value="radeon">Radeon Graphics</option>
-                    </select>
+                    <p>Bàn Phím</p>
+                    <div class="filter-container" data-category="keyboard">
+                    
+                        <!-- Lọc theo khoảng giá -->
+                        <label for="filter-price-range">Khoảng giá:</label>
+                        <select id="filter-price-range-accesories">
+                            <option value="">Tất cả</option>
+                            <option value="1000000">Dưới 1 triệu</option>
+                            <option value="1000000+">Từ 1 triệu trở lên</option>
+                        </select>
+                        <button id="apply-filters-accesories">Áp dụng</button>
+                    </div>                
                 </div>                    
                 <div class="product-list"></div> <!-- Sản phẩm sẽ được hiển thị tại đây -->
         </div>

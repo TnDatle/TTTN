@@ -165,7 +165,7 @@ document.getElementById('apply-filters')?.addEventListener('click', () => {
     displayProducts(category, filters);
 });
 
-async function displayAccessories(category) {
+async function displayAccessories(category, filters = {}) {
     try {
         if (!db) {
             console.error("❌ Firestore chưa được khởi tạo.");
@@ -174,9 +174,22 @@ async function displayAccessories(category) {
 
         // Cập nhật đường dẫn bộ sưu tập thành "accessories" thay vì "laptop"
         const productsRef = collection(db, "products", "accessories", "items");
-        
-        // Thực hiện truy vấn với điều kiện là category
-        const q = query(productsRef, where("category", "==", category));
+
+        let q = query(productsRef, where("category", "==", category));
+
+        // Áp dụng bộ lọc cho brand
+        if (filters.brand) {
+            const formattedBrand = filters.brand.charAt(0).toUpperCase() + filters.brand.slice(1); // "logitech" → "Logitech"
+            q = query(q, where("brand", "==", formattedBrand));
+        }
+
+        // Áp dụng bộ lọc cho giá
+        if (filters.priceRange) {
+            const { min, max } = filters.priceRange;
+            if (min !== null) q = query(q, where("price", ">=", min));
+            if (max !== null) q = query(q, where("price", "<=", max));
+        }
+
         const snapshot = await getDocs(q);
 
         const container = document.querySelector('.product-list'); 
@@ -227,6 +240,36 @@ async function displayAccessories(category) {
         console.error("❌ Lỗi khi lấy sản phẩm từ Firestore: ", error);
     }
 }
+
+function getFiltersForAccessories() {
+    const brand = document.getElementById('filter-brand-accesories')?.value || null;
+    const priceRangeValue = document.getElementById('filter-price-range-accesories')?.value || null;
+
+    let priceRange = { min: null, max: null };
+    if (priceRangeValue) {
+        if (priceRangeValue === '1000000') {
+            // Lọc giá dưới 1 triệu
+            priceRange.min = 0;
+            priceRange.max = 1000000; // Giá phải dưới 1 triệu
+        } else if (priceRangeValue === '1000000-') {
+            // Lọc giá trên 1 triệu
+            priceRange.min = 1000000; // Giá phải trên 1 triệu
+            priceRange.max = null;    // Không giới hạn trên
+        }
+    }
+
+    return { brand, priceRange };
+}
+
+
+document.getElementById('apply-filters-accesories')?.addEventListener('click', () => {
+    const filters = getFiltersForAccessories();
+    const category = document.querySelector('.filter-container')?.dataset.category || 'mouse'; // Mặc định là 'mouse' nếu không tìm thấy
+    console.log("Đang áp dụng bộ lọc phụ kiện:", filters, "Category:", category);
+    displayAccessories(category, filters);  // Gọi hàm displayAccessories để áp dụng bộ lọc
+});
+
+
 
 // 🔎 Chuyển hướng đến trang chi tiết sản phẩm
 function viewProductDetail(productId, category, subCategory) {
