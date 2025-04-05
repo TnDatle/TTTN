@@ -138,8 +138,14 @@ function getFilters() {
 
     let priceRange = { min: null, max: null };
     if (priceRangeValue) {
-        const [min, max] = priceRangeValue.split('-').map(Number);
-        priceRange = { min, max };
+        if (priceRangeValue.includes('+')) {
+            // Trường hợp "Trên 30 triệu"
+            priceRange.min = parseInt(priceRangeValue.replace('+', ''));
+            priceRange.max = null; // Không giới hạn trên
+        } else {
+            const [min, max] = priceRangeValue.split('-').map(Number);
+            priceRange = { min, max };
+        }
     }
 
     return {

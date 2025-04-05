@@ -617,18 +617,37 @@ a {
     border-radius: 10px;
     margin: 20px 0;
     align-items: center;
+    border: 1px solid #ccc;         /* Khung viền ngoài */
+    padding: 15px;                  /* Khoảng cách bên trong khung */
+    background-color: #fafafa;      /* Nền nhẹ cho khung */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Bóng nhẹ cho nổi bật */
 }
+
 
 .filter-container button {
     display: flex;
-    align-items: center;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;     /* Căn giữa theo chiều dọc */
     padding: 8px 12px;
     background-color: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+    margin: 0 auto; 
+    width: 800px;
+    font-weight: bold;
+    text-align: center;
 }
+
+
+.filter-container button:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
 
 .filter-container select {
     padding: 8px;
@@ -2044,6 +2063,11 @@ tr:nth-child(even) {
     margin-left: 250px;
     padding: 10px;
     justify-content: center;
+}
+
+.product-list p {
+    text-align: center;
+    white-space: nowrap;      /* Ngăn không cho xuống dòng */
 }
 
 /* Thẻ chứa sản phẩm */
