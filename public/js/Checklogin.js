@@ -57,17 +57,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Cập nhật giao diện user
     async function updateUserInterface(fullName = "Tài khoản") {
         const loginLi = topMenuIcons.querySelector("li:nth-child(2)");
-
+    
         if (!loginLi) {
             console.error("Không tìm thấy phần tử đăng nhập!");
             return;
         }
-
+    
         if (fullName) {
-            loginLi.innerHTML = `<span class="user-name">${fullName}</span>`;
-
+            loginLi.innerHTML = `
+            <div id="user-box" 
+                 style="display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:8px; border:1px solid #ccc; background-color:#fefefe; font-weight:500; cursor:pointer; transition:all 0.5s ease; box-shadow:0 2px 5px rgba(0,0,0,0.1);" 
+                 onmouseover="this.style.background='#f1f1f1'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.15)'" 
+                 onmouseout="this.style.background='#fefefe'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.1)'">
+                <i class="fas fa-user" style="font-size:15px; color:#666;"></i>
+                <span class="user-name" style="white-space:nowrap; font-size:15px; color:#333;">${fullName}</span>
+            </div>
+        `;
+        
+            const userBox = document.querySelector("#user-box");
+    
             // Xử lý click mở menu
-            loginLi.addEventListener("click", (e) => {
+            userBox.addEventListener("click", (e) => {
                 e.preventDefault();
     
                 let userMenu = document.querySelector("#user-menu");
@@ -84,33 +94,42 @@ document.addEventListener("DOMContentLoaded", async () => {
                         </ul>
                     `;
                     document.body.appendChild(userMenu);
-    
-                    // Xử lý đăng xuất
-                    document.querySelector("#logout-btn").addEventListener("click", async () => {
-                        if (confirm("Bạn chắc chắn muốn đăng xuất?")) {
-                            await signOut(auth);
-                            alert("Bạn đã đăng xuất thành công!");
-                            userMenu.remove();
-                            updateUserInterface();
-                            window.location.href = "../../views/home.html";
-                        }
-                    });
                 }
+    
+                 // Căn chỉnh menu ngay dưới user box
+                    const rect = userBox.getBoundingClientRect();
+                    userMenu.style.left = `${rect.left}px`;
+                    userMenu.style.top = `${rect.bottom + window.scrollY}px`;
+                    userMenu.style.display = "block";
 
-                userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
+                    // Xử lý đóng menu khi click ra ngoài
+                    setTimeout(() => {
+                        document.addEventListener("click", closeMenu, { once: true });
+                    }, 0);
 
-                // Đóng menu khi click ra ngoài
-                document.addEventListener("click", (event) => {
-                    if (!userMenu.contains(event.target) && !loginLi.contains(event.target)) {
-                        userMenu.style.display = "none";
+                    function closeMenu(event) {
+                        if (!userMenu.contains(event.target) && !userBox.contains(event.target)) {
+                            userMenu.style.display = "none";
+                        }
                     }
-                }, { once: true });
+    
+                // Xử lý đăng xuất
+                document.querySelector("#logout-btn").addEventListener("click", async () => {
+                    if (confirm("Bạn chắc chắn muốn đăng xuất?")) {
+                        await signOut(auth);
+                        alert("Bạn đã đăng xuất thành công!");
+                        userMenu.remove();
+                        updateUserInterface();
+                        window.location.href = "../../views/home.html";
+                    }
+                });
             });
         } else {
             // Nếu chưa đăng nhập, hiển thị icon user như cũ
             loginLi.innerHTML = `<a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a>`;
         }
     }
+    
 
     // Xử lý giỏ hàng
     const cartIcon = document.querySelector(".fa-shopping-cart");
