@@ -2187,6 +2187,7 @@ tr:nth-child(even) {
     text-align: center;
     padding: 15px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 /* 🔹 Hình ảnh sản phẩm */
