@@ -54,8 +54,6 @@ async function fetchUserOrders(userEmail) {
 
         const createStatusDropdown = (status, orderId) => {
             const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công", "Đã hủy"];
-            
-            // Kiểm tra nếu trạng thái là "Đã giao thành công" hoặc "Đã hủy", thì disable dropdown
             const isDisabled = (status === "Đã giao thành công" || status === "Đã hủy") ? "disabled" : "";
         
             return ` 
@@ -67,7 +65,8 @@ async function fetchUserOrders(userEmail) {
                     `).join('')}
                 </select>
             `;
-        };        
+        };
+        
 
         orderDiv.innerHTML = `
             <div class="order-header">
@@ -78,7 +77,9 @@ async function fetchUserOrders(userEmail) {
                 <p><strong>Họ và tên:</strong> ${order.fullName || 'Chưa cập nhật'}</p>
                 <p><strong>Số điện thoại:</strong> ${order.phone || 'Chưa cập nhật'}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || 'Chưa cập nhật'}</p>
-                 <p><strong>Tỉnh/Thành:</strong> ${order.province || 'Chưa cập nhật'}</p>
+                <p><strong>Tỉnh/Thành:</strong> ${order.province || 'Chưa cập nhật'}</p>
+                <p><strong>Phường/Xã:</strong> ${order.ward || 'Chưa cập nhật'}</p>
+                <p><strong>Quận/Huyện:</strong> ${order.district || 'Chưa cập nhật'}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment}</p>
                 <p><strong>Ngày tạo:</strong> ${createdAtFormatted}</p>
             </div>
@@ -93,7 +94,7 @@ async function fetchUserOrders(userEmail) {
             </div>
             <div class="total">Tổng tiền: ${order.total || 0} đ</div>
             <div class="order-status">
-                ${createStatusDropdown(order.status)}
+                ${createStatusDropdown(order.status, order.orderId)} <!-- ✅ Truyền orderId vào -->
             </div>
         `;
 

@@ -139,7 +139,8 @@ async function submitOrder() {
     const useremail = currentUser.email;
     const fullName = document.getElementById("fullName").value.trim();
     const phone = document.getElementById("phone").value.trim();
-    const province = document.getElementById("provinceDropdown").value;
+    const provinceSelect = document.getElementById("provinceDropdown");
+    const province = provinceSelect.options[provinceSelect.selectedIndex].text;
     const district = document.getElementById("districtDropdown").value;
     const ward = document.getElementById("wardInput").value.trim();
     const address = document.getElementById("addressInput").value.trim();
@@ -190,7 +191,7 @@ async function submitOrder() {
         useremail,
         fullName,
         phone,
-        province: "Thành phố Hồ Chí Minh",
+        province,
         district,
         ward,
         address,
@@ -207,79 +208,53 @@ async function submitOrder() {
     await saveOrder(orderData);
 }
 
-  // Hàm tải danh sách tỉnh/thành
-  async function loadProvinces() {
-    try {   
-        const response = await fetch("https://online-gateway.ghn.vn/shiip/public-api/master-data/province", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Token": "66ce5502-9c0f-11ef-8693-5abc7748e730" // API_Key 
-            }
-        });
+let allProvinces = []; // Biến lưu trữ tất cả tỉnh và quận để tái sử dụng
+
+// Hàm tải danh sách tỉnh/thành và quận/huyện từ Open API
+async function loadProvinces() {
+    try {
+        const response = await fetch("https://provinces.open-api.vn/api/?depth=2");
         const data = await response.json();
-        
-        if (data.code === 200) {
-            const provinces = data.data;
-            const provinceDropdown = document.getElementById("provinceDropdown");
-            
-            provinces.forEach(province => {
-                const option = document.createElement("option");
-                option.value = province.ProvinceID;
-                option.text = province.ProvinceName;
-                provinceDropdown.add(option);
-            });
-        } else {
-            console.error("Không thể tải danh sách tỉnh thành", data.message);
-        }
+
+        allProvinces = data; // Lưu lại dữ liệu để dùng khi chọn tỉnh
+        const provinceDropdown = document.getElementById("provinceDropdown");
+
+        data.forEach(province => {
+            const option = document.createElement("option");
+            option.value = province.code; // province.code là ID của tỉnh
+            option.text = province.name;
+            provinceDropdown.appendChild(option);
+        });
     } catch (error) {
-        console.error("Lỗi khi gọi API", error);
+        console.error("Lỗi khi tải danh sách tỉnh/thành:", error);
     }
 }
 
-// Hàm tải danh sách quận/huyện dựa vào tỉnh/thành đã chọn
-async function loadDistricts(provinceID) {
-    try {
-        const response = await fetch("https://online-gateway.ghn.vn/shiip/public-api/master-data/district", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Token": "66ce5502-9c0f-11ef-8693-5abc7748e730" // Thay YOUR_API_KEY bằng API Key của bạn
-            },
-            body: JSON.stringify({ province_id: parseInt(provinceID) })
+// Hàm xử lý khi người dùng chọn tỉnh -> hiện danh sách quận/huyện
+function loadDistricts(provinceID) {
+    const selectedProvince = allProvinces.find(p => p.code == provinceID);
+    const districtDropdown = document.getElementById("districtDropdown");
+
+    districtDropdown.innerHTML = '<option value="">--Chọn quận/huyện--</option>';
+
+    if (selectedProvince && selectedProvince.districts) {
+        selectedProvince.districts.forEach(district => {
+            const option = document.createElement("option");
+            option.value = district.name;
+            option.text = district.name;
+            districtDropdown.appendChild(option);
         });
-        const data = await response.json();
-        
-        if (data.code === 200) {
-            const districts = data.data;
-            const districtDropdown = document.getElementById("districtDropdown");
-            districtDropdown.innerHTML = '<option value="">--Chọn quận/huyện--</option>';
-            
-            districts.forEach(district => {
-                const option = document.createElement("option");
-                option.value = district.DistrictID;
-                option.text = district.DistrictName;
-                districtDropdown.add(option);
-            });
-        } else {
-            console.error("Không thể tải danh sách quận/huyện:", data.message);
-        }
-    } catch (error) {
-        console.error("Lỗi khi gọi API", error);
     }
 }
+
 // Gọi hàm loadProvinces khi trang được tải
 document.addEventListener("DOMContentLoaded", loadProvinces);
 
-// Lắng nghe sự kiện khi người dùng chọn tỉnh/thành để tải quận/huyện
-document.getElementById("provinceDropdown").addEventListener("change", function() {
+document.getElementById("provinceDropdown").addEventListener("change", function () {
     const provinceID = this.value;
-    if (provinceID) {
-        loadDistricts(provinceID);
-    } else {
-        document.getElementById("district").innerHTML = '<option value="">--Chọn quận/huyện--</option>';
-    }
+    loadDistricts(provinceID);
 });
+
 
 // Lấy giỏ hàng từ localStorage
 function getCart() {

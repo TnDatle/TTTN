@@ -2376,7 +2376,7 @@ tr:nth-child(even) {
 
 /* Ô gợi ý tìm kiếm */
 .suggestion-box {
-    width: 350px;
+    width: 255px;
     border: 1px solid #ccc;
     background: #fff;
     position: absolute;
@@ -2385,11 +2385,10 @@ tr:nth-child(even) {
     box-sizing: border-box;
     max-height: 400px;
     overflow-y: auto;
-    margin-top:40px;
+    margin-top: 40px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
-  
   
   .suggestion-item {
     padding: 10px 15px;
@@ -2410,25 +2409,32 @@ tr:nth-child(even) {
     object-fit: cover;
     margin-right: 15px;
     flex-shrink: 0;
+    border-radius: 4px;
   }
   
-
   .search-product-list {
     display: flex;
-    gap:20px;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    overflow: hidden;
   }
-
-  .search-product-list .product-name{
-    font-size: 18px;
-    font-weight: bold;
+  
+  .search-product-list .product-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
-  .search-product-list .product-price{
-    font-size: 18px;
+  
+  .search-product-list .product-price {
+    font-size: 14px;
     color: red;
     font-weight: bold;
   }
-
+  
 
 
 

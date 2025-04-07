@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="/public/js/js-admin/checkadmin.js"></script>
+    <script  type="module" src="/public/js/js-admin/notification.js"></script>
 </head>
 <body>
 <div class="container">
@@ -103,6 +104,16 @@
                 </label>
             </div>
 
+            <div class="notifications" id="notification-icon">
+                <ion-icon name="notifications-outline"></ion-icon>
+                <span class="badge" id="notification-count">0</span>
+                <div class="notification-dropdown" id="notification-dropdown">
+                    <h4>Thông báo mới</h4>
+                    <ul id="notification-list"></ul>
+                </div>
+            </div>
+            
+              
             <div class="user">
                 <img src="/public/img/logo.png" alt="">
             </div>

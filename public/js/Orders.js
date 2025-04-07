@@ -51,6 +51,13 @@ function renderOrders(ordersList, containerId) {
 
     ordersList.forEach(order => {
         const orderDiv = document.createElement("div");
+        // Convert createdAt to a readable date and time format
+        const createdAt = order.createdAt ? new Date(order.createdAt.seconds * 1000) : null;
+        const formattedDate = createdAt 
+          ? `${('0' + createdAt.getDate()).slice(-2)}/${('0' + (createdAt.getMonth() + 1)).slice(-2)}/${createdAt.getFullYear()} 
+              ${('0' + createdAt.getHours()).slice(-2)}:${('0' + createdAt.getMinutes()).slice(-2)}:${('0' + createdAt.getSeconds()).slice(-2)}`
+          : "Chưa cung cấp";
+
         orderDiv.classList.add("order");
         orderDiv.innerHTML = `
             <div class="order-header">
@@ -58,11 +65,13 @@ function renderOrders(ordersList, containerId) {
                 <span class="status">${order.status || "Đang xử lý"}</span>
             </div>
             <div class="order-details">
+                <p><strong>Ngày đặt hàng:</strong> ${formattedDate}</p>
                 <p><strong>Họ tên:</strong> ${order.fullName || "Chưa cung cấp"}</p>
                 <p><strong>Số điện thoại:</strong> ${order.phone || "Chưa cung cấp"}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || "Chưa cung cấp"}</p>
                 <p><strong>Tỉnh/Thành:</strong> ${order.province || "Chưa cung cấp"}</p>
                 <p><strong>Phường:</strong> ${order.ward || "Chưa cung cấp"}</p>
+                <p><strong>Quận:</strong> ${order.district || "Chưa cung cấp"}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment || "Chưa cung cấp"}</p>
             </div>
            <div class="product-list">
