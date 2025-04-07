@@ -172,37 +172,37 @@ async function displayAccessories(category, filters = {}) {
             return;
         }
 
-        // Cập nhật đường dẫn bộ sưu tập thành "accessories" thay vì "laptop"
         const productsRef = collection(db, "products", "accessories", "items");
-
         let q = query(productsRef, where("category", "==", category));
-
-        // Áp dụng bộ lọc cho brand
-        if (filters.brand) {
-            const formattedBrand = filters.brand.charAt(0).toUpperCase() + filters.brand.slice(1); // "logitech" → "Logitech"
-            q = query(q, where("brand", "==", formattedBrand));
-        }
-
-        // Áp dụng bộ lọc cho giá
-        if (filters.priceRange) {
-            const { min, max } = filters.priceRange;
-            if (min !== null) q = query(q, where("price", ">=", min));
-            if (max !== null) q = query(q, where("price", "<=", max));
-        }
 
         const snapshot = await getDocs(q);
 
-        const container = document.querySelector('.product-list'); 
+        const container = document.querySelector('.product-list');
         if (!container) {
             console.error("❌ Container element không tìm thấy.");
             return;
         }
-        container.innerHTML = '';  // Xóa nội dung cũ trước khi hiển thị lại
+
+        container.innerHTML = '';
 
         snapshot.forEach((doc) => {
             const product = doc.data();
             const productId = doc.id;
 
+            //  Lọc tên phụ kiện (dùng includes, không phân biệt hoa thường)
+            if (filters.name) {
+                const keyword = filters.name.toLowerCase();
+                const productName = product.name?.toLowerCase() || '';
+                if (!productName.includes(keyword)) return; // Skip nếu không khớp
+            }
+
+            //  Lọc giá nếu có
+            if (filters.priceRange) {
+                const { min, max } = filters.priceRange;
+                if ((min !== null && product.price < min) || (max !== null && product.price > max)) return;
+            }
+
+            // Tạo HTML sản phẩm
             const priceFormatted = (typeof product.price === 'number' && !isNaN(product.price))
                 ? product.price.toLocaleString('vi-VN')
                 : 'Giá không xác định';
@@ -210,7 +210,6 @@ async function displayAccessories(category, filters = {}) {
             const rating = product.rating ? product.rating.toFixed(1) : '0.0';
             const reviewCount = product.reviewCount || 0;
 
-            // 🏷 Hiển thị sản phẩm
             const productHTML = `
                 <div class="product-card" data-id="${productId}">
                     <div class="product-image">
@@ -228,7 +227,6 @@ async function displayAccessories(category, filters = {}) {
             container.innerHTML += productHTML;
         });
 
-        // 🖱 Xử lý sự kiện click vào từng sản phẩm
         document.querySelectorAll('.product-card').forEach(card => {
             card.addEventListener('click', function () {
                 const productId = this.getAttribute('data-id');
@@ -242,29 +240,26 @@ async function displayAccessories(category, filters = {}) {
 }
 
 function getFiltersForAccessories() {
-    const brand = document.getElementById('filter-brand-accesories')?.value || null;
+    const name = document.getElementById('filter-name-accesories')?.value || null;
     const priceRangeValue = document.getElementById('filter-price-range-accesories')?.value || null;
 
     let priceRange = { min: null, max: null };
     if (priceRangeValue) {
         if (priceRangeValue === '1000000') {
-            // Lọc giá dưới 1 triệu
             priceRange.min = 0;
-            priceRange.max = 1000000; // Giá phải dưới 1 triệu
+            priceRange.max = 1000000;
         } else if (priceRangeValue === '1000000-') {
-            // Lọc giá trên 1 triệu
-            priceRange.min = 1000000; // Giá phải trên 1 triệu
-            priceRange.max = null;    // Không giới hạn trên
+            priceRange.min = 1000000;
+            priceRange.max = null;
         }
     }
 
-    return { brand, priceRange };
+    return { name, priceRange };
 }
-
 
 document.getElementById('apply-filters-accesories')?.addEventListener('click', () => {
     const filters = getFiltersForAccessories();
-    const category = document.querySelector('.filter-container')?.dataset.category || 'mouse'; // Mặc định là 'mouse' nếu không tìm thấy
+    const category = document.querySelector('.filter-container')?.dataset.category || 'mouse,keyboard,headphone'; // Mặc định là 'mouse' nếu không tìm thấy
     console.log("Đang áp dụng bộ lọc phụ kiện:", filters, "Category:", category);
     displayAccessories(category, filters);  // Gọi hàm displayAccessories để áp dụng bộ lọc
 });
