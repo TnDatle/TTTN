@@ -65,19 +65,20 @@ function renderOrders(ordersList, containerId) {
                 <p><strong>Phường:</strong> ${order.ward || "Chưa cung cấp"}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment || "Chưa cung cấp"}</p>
             </div>
-            <div class="product-list">
+           <div class="product-list">
                 ${order.items.map(item => `
                     <div class="product">
-                        <span>${item.name}</span>
+                        <span class="name"><strong>${item.name}</strong></span>
                         <span>Số lượng: ${item.quantity}</span>
-                        <span>Thành tiền: ${item.subtotal} đ</span>
+                        <span>Thành tiền: ${Number(item.subtotal).toLocaleString('vi-VN')} ₫</span>
                     </div>
                 `).join("")}
             </div>
-            <div class="total">Tổng tiền: ${order.total} đ</div>
+            <div class="total">Tổng tiền: ${Number(order.total).toLocaleString('vi-VN')} ₫</div>
             ${order.status === "Đang chờ tiếp nhận" 
                 ? `<button class="cancel-order-btn" data-order-id="${order.id}">Hủy đơn hàng</button>` 
                 : ""}  
+
         `;
         ordersContainer.appendChild(orderDiv);
     });

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kết quả tìm kiếm - DHH Store</title>
+  <link rel="stylesheet" href="../../public/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="crossorigin="anonymous"referrerpolicy="no-referrer"/>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script type="module" src="../../routes/Firebase-Config.js"></script>
+  <script type="module" src="/public/js/Checklogin.js" ></script>
+  <script type="module" src="../../routes/Search.js"></script>
+</head>
+
+<body>
+  <!-- =================== HEADER =================== -->
+  <section class="top">
+    <div class="container">
+      <div class="row">
+        <div class="top-logo">
+          <a href="../home.html"><img src="../../public/img/logo.png" alt="Logo" /></a>
+        </div>
+        <div class="top-menu-items">
+          <ul>
+            <li>
+              <h4>Laptop</h4>
+              <ul class="top-menu-item">
+                <li><a href="/views/Category/Gaming.html">Laptop Gaming</a></li>
+                <li><a href="/views/Category/Laptop.html">Laptop Văn Phòng</a></li>
+                <li><a href="/views/Category/Workstation.html">Workstation Laptop</a></li>
+              </ul>
+            </li>
+            <li>
+              <h4>Phụ Kiện</h4>
+              <ul class="top-menu-item">
+                <li><a href="/views/Category/Mouse.html">Chuột</a></li>
+                <li><a href="/views/Category/Keyboard.html">Bàn Phím</a></li>
+                <li><a href="/views/Category/Headphone.html">Tai Nghe</a></li>
+              </ul>
+            </li>
+            <li>
+              <h4>Cấu Hình</h4>
+              <ul class="top-menu-item">
+                <li id="compare-link"><a href="#">So sánh cấu hình</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="top-menu-icons">
+          <ul>
+            <li>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm" />
+                    <button id="searchButton">🔍</button>
+                    <div id="suggestions" class="suggestion-box"></div>
+                </div>
+            </li>
+            <li><a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
+            <li>
+              <a href="/views/Cart/Cart.html"><i id="cart-icon" class="fas fa-shopping-cart"></i></a>
+              <span id="cart-count">0</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== KẾT QUẢ TÌM KIẾM =================== -->
+  <section class="search-results">
+    <div class="container">
+      <div class="search-title">
+        <h2>Kết quả tìm kiếm<span id="search-keyword"></span></h2>
+      </div>
+      <div class="product-grid" id="search-results">
+        <!-- Các sản phẩm tìm kiếm được sẽ hiển thị tại đây bằng JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== FOOTER =================== -->
+  <section class="footer">
+    <div class="footer-container">
+      <p>Truy cập Fanpage <a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank">ĐHH Computer</a></p>
+      <div class="app-google">
+        <a href="https://www.apple.com/app-store/" target="_blank"><img src="" alt="" /></a>
+        <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="" alt="" /></a>
+      </div>
+      <div class="footer-items">
+        <li><a href="http://online.gov.vn" target="_blank"><img src="/public/img/bct.png" alt="" /></a></li>
+        <li><a href="tel:0797268602">Liên hệ</a></li>
+        <li><a href="#">Giới thiệu</a></li>
+        <li>
+          <a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="mailto:bookhavenstoresince2024@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+        </li>
+      </div>
+      <div class="footer-text">
+        <p>Địa chỉ đăng ký: 18A Cộng Hòa, P.13, Q.Tân Bình, TP.HCM</p>
+        <p>Đặt hàng online: 02820124323</p>
+      </div>
+      <div class="footer-bottom">
+        @ DHH Laptop Store by BOYS Studio
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SCRIPT =================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var link = document.getElementById('compare-link');
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/views/Category/Compare.html';
+      });
+    });
+  </script>
+</body>
+</html>

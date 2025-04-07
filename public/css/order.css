@@ -237,3 +237,27 @@ button[id^="confirm-cancel-btn-"],button[id^="cancel-cancel-btn-"]:active {
         padding: 12px 20px;
     }
 }
+
+
+.order .product-list {
+    text-align: left;
+    margin-left: 0;
+    padding-left: 0;
+    align-items: flex-start; /* nếu dùng flex */
+    justify-content: flex-start;
+}
+
+
+.product {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 100%; /* chiếm hết chiều ngang cha */
+}
+
+.name {
+    font-weight: bold;
+}

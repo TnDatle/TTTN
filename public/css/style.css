@@ -610,6 +610,20 @@ a {
     font-size: 12px;
 }
 
+.search-results {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+  }
+  
+  .search-results .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 50px;
+  }
+  
+
+
 .filter-container {
     display: flex;
     flex-wrap: wrap;
@@ -675,17 +689,28 @@ a {
     flex-wrap: wrap;
 }
 
-.product-card {
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* hoặc center nếu bạn muốn canh giữa */
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .product-grid:hover{
+    transform: scale(1.05);
+  }
+  
+  .product-card {
     background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 15px;
-    padding: 20px;
-    width: 200px;
-    text-align: left;
-    transition: transform 0.2s;
-}
+    width: 220px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+  }
 
 .product-card:hover {
     transform: scale(1.05);
@@ -696,8 +721,8 @@ a {
     border-radius: 8px;
 }
 
-.price {
-    color: #d9534f;
+.product-card .price {
+    color: red;
     font-weight: bold;
 }
 
@@ -2223,7 +2248,7 @@ tr:nth-child(even) {
 .product-item p.price {
     font-size: 18px; /* Tăng kích thước chữ */
     font-weight: bold; /* Chữ đậm */
-    color: #ff4d00; /* Màu cam đỏ */
+    color: red;; /* Màu đỏ */
     margin: 5px 0; /* Canh lề */
 }
 
@@ -2345,3 +2370,68 @@ tr:nth-child(even) {
 .cartegory .top-banner img {
     width: 65%;
 }
+
+
+
+
+/* Ô gợi ý tìm kiếm */
+.suggestion-box {
+    width: 350px;
+    border: 1px solid #ccc;
+    background: #fff;
+    position: absolute;
+    z-index: 99;
+    display: none;
+    box-sizing: border-box;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top:40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .suggestion-item {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .suggestion-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+  
+
+  .search-product-list {
+    display: flex;
+    gap:20px;
+  }
+
+  .search-product-list .product-name{
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .search-product-list .product-price{
+    font-size: 18px;
+    color: red;
+    font-weight: bold;
+  }
+
+
+
+
+  
+
+  

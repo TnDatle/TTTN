@@ -22,13 +22,20 @@ async function loadProductDetail() {
 
     console.log(`🛒 Đang tải sản phẩm: ${productId}, Category: ${category}, SubCategory: ${subCategory}`);
 
-    const docRef = doc(db, "products", category, subCategory, productId);
-    const docSnap = await getDoc(docRef);
+    let docRef = doc(db, "products", category, subCategory, productId);
+    let docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      // Thử tìm trong collection còn lại
+      const altCategory = category === "laptop" ? "accessories" : "laptop";
+      docRef = doc(db, "products", altCategory, subCategory, productId);
+      docSnap = await getDoc(docRef);
+    }
 
     if (docSnap.exists()) {
       currentProduct = docSnap.data();
       currentProduct.id = docSnap.id;
-      productImages = currentProduct.imageURLs || [];  // Lưu danh sách ảnh
+      productImages = currentProduct.imageURLs || [];
 
       displayProductDetails(currentProduct);
     } else {
@@ -39,6 +46,7 @@ async function loadProductDetail() {
     console.error("❌ Lỗi khi tải sản phẩm: ", error);
   }
 }
+
 
 // 🎨 Hiển thị chi tiết sản phẩm
 function displayProductDetails(product) {

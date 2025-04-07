@@ -10,12 +10,10 @@ import {  doc, getDoc, collection, addDoc } from "https://www.gstatic.com/fireba
 
 // Hàm để lấy thông tin sản phẩm từ Firestore
 async function getProductById(productId) {
-    const collections = [
-        'products/laptop/items',
-    ];
+    const categories = ['laptop', 'accessories'];
 
-    for (const collectionPath of collections) {
-        const docRef = doc(db, collectionPath, productId);
+    for (const category of categories) {
+        const docRef = doc(db, "products", category, "items", productId);
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
@@ -23,9 +21,10 @@ async function getProductById(productId) {
         }
     }
 
-    console.log("Không tìm thấy sản phẩm");
+    console.log("Không tìm thấy sản phẩm:", productId);
     return null; // Trả về null nếu không tìm thấy
 }
+
 
 // Hàm để tính phí ship
 function calculateShippingFee(district) {

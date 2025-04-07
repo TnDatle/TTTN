@@ -2,22 +2,31 @@ import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.
 import { db } from '../../routes/Firebase-Config.js';
 
 // Lấy dữ liệu sản phẩm từ Firestore
-async function getProductData(category, productId) {
+async function getProductData(productId) {
     try {
-        const productRef = doc(db, "products", category, "items", productId);
-        const productSnap = await getDoc(productRef);
-
+        // Thử với laptop
+        let productRef = doc(db, "products", "laptop", "items", productId);
+        let productSnap = await getDoc(productRef);
         if (productSnap.exists()) {
             return productSnap.data();
-        } else {
-            console.error("Product not found:", productId);
-            return null;
         }
+
+        // Nếu không có thì thử với accessories
+        productRef = doc(db, "products", "accessories", "items", productId);
+        productSnap = await getDoc(productRef);
+        if (productSnap.exists()) {
+            return productSnap.data();
+        }
+
+        console.error("❌ Không tìm thấy sản phẩm trong cả laptop và accessories:", productId);
+        return null;
+
     } catch (error) {
-        console.error("Error fetching product data:", error);
+        console.error("❌ Lỗi khi lấy dữ liệu sản phẩm:", error);
         return null;
     }
 }
+
 
 // Hiển thị giỏ hàng
 async function displayCart() {
@@ -41,7 +50,7 @@ async function displayCart() {
 
         for (const item of cart) {
             try {
-                let product = await getProductData("laptop", item.id);
+                let product = await getProductData(item.id);
 
                 if (product) {
                     const subtotal = product.price * item.quantity;
