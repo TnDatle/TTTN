@@ -33,6 +33,7 @@ h1 {
 
 /* --------- Danh sách đơn hàng --------- */
 .order {
+    margin-top: 20px;
     border: 2px solid #ddd; /* Viền to hơn */
     border-radius: 10px;
     margin-bottom: 20px;

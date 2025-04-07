@@ -69,9 +69,9 @@ function renderOrders(ordersList, containerId) {
                 <p><strong>Họ tên:</strong> ${order.fullName || "Chưa cung cấp"}</p>
                 <p><strong>Số điện thoại:</strong> ${order.phone || "Chưa cung cấp"}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || "Chưa cung cấp"}</p>
+                <p><strong>Phường/Xã:</strong> ${order.ward || "Chưa cung cấp"}</p>
+                <p><strong>Quận/Huyện:</strong> ${order.district || "Chưa cung cấp"}</p>
                 <p><strong>Tỉnh/Thành:</strong> ${order.province || "Chưa cung cấp"}</p>
-                <p><strong>Phường:</strong> ${order.ward || "Chưa cung cấp"}</p>
-                <p><strong>Quận:</strong> ${order.district || "Chưa cung cấp"}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment || "Chưa cung cấp"}</p>
             </div>
            <div class="product-list">

@@ -77,9 +77,9 @@ async function fetchUserOrders(userEmail) {
                 <p><strong>Họ và tên:</strong> ${order.fullName || 'Chưa cập nhật'}</p>
                 <p><strong>Số điện thoại:</strong> ${order.phone || 'Chưa cập nhật'}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || 'Chưa cập nhật'}</p>
-                <p><strong>Tỉnh/Thành:</strong> ${order.province || 'Chưa cập nhật'}</p>
                 <p><strong>Phường/Xã:</strong> ${order.ward || 'Chưa cập nhật'}</p>
                 <p><strong>Quận/Huyện:</strong> ${order.district || 'Chưa cập nhật'}</p>
+                <p><strong>Tỉnh/Thành:</strong> ${order.province || 'Chưa cập nhật'}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment}</p>
                 <p><strong>Ngày tạo:</strong> ${createdAtFormatted}</p>
             </div>

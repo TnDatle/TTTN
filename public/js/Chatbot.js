@@ -47,7 +47,7 @@ function displayQuestions() {
     const messageArea = document.getElementById("messages");
 
     const questions = [
-        { text: "Laptop bán chạy nhất ở đây là gì?", answer: "Laptop bán chạy nhất hiện nay là 'Dell XPS 13' với hiệu năng mạnh mẽ và thiết kế cao cấp." },
+        { text: "Laptop bán chạy nhất ở đây là gì?", answer: "Laptop bán chạy nhất hiện nay là 'Laptop gaming ASUS Vivobook 16X K3605ZF RP634W' với hiệu năng mạnh mẽ và thiết kế cao cấp." },
         { text: "Chính sách bảo hành ở đây là gì?", answer: "Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu laptop hoặc phụ kiện bị lỗi." },
         { text: "Shop có bán sản phẩm chính hãng không?", answer: "Tất cả sản phẩm bán tại DHH Store đều là laptop chính hãng, cam kết chất lượng." }
     ];    
@@ -144,7 +144,7 @@ function autoReply(userInput) {
     let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang Facebook chính thức";
         // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
         if (userInput.toLowerCase().includes("laptop bán chạy") || userInput.toLowerCase().includes("laptop hot") || userInput.toLowerCase().includes("best seller") || userInput.toLowerCase().includes("laptop tốt")) {
-            botResponse = "Laptop bán chạy nhất hiện nay là MacBook Air M2 và Dell XPS 13. (Bot Reply)";
+            botResponse = "Laptop bán chạy nhất hiện nay là Laptop Lenovo IdeaPad Slim 5 15IRU9 và Laptop gaming ASUS Vivobook 16X K3605ZF RP634W. (Bot Reply)";
         } else if (userInput.toLowerCase().includes("bảo hành") || userInput.toLowerCase().includes("đổi trả")) {
             botResponse = "Laptop được bảo hành chính hãng từ 12-24 tháng tùy theo dòng máy. Đổi trả trong 7 ngày nếu có lỗi từ nhà sản xuất. (Bot Reply)";
         } else if (userInput.toLowerCase().includes("laptop chính hãng") || userInput.toLowerCase().includes("hợp lệ") || userInput.toLowerCase().includes("uy tín")) {

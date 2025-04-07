@@ -550,6 +550,80 @@ body {
     border-bottom: 1px solid #eee;
 }
 
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .read-button:hover {
+    color: red;
+    text-decoration: underline;
+  }
+  
+/* Style cho modal tùy chỉnh */
+/* Modal cho thông tin đơn hàng */
+.order-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+  }
+  
+/* Nội dung modal */
+.order-details-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    max-height: 80%;
+    overflow-y: auto;
+    white-space: pre-wrap; /* Cho phép văn bản xuống dòng */
+    word-wrap: break-word; /* Gói từ khi cần thiết */
+  }
+  
+  /* Tiêu đề modal */
+  .order-details-modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    word-wrap: break-word; /* Đảm bảo tiêu đề xuống dòng khi quá dài */
+  }
+  
+  /* Nội dung thông tin đơn hàng */
+  .order-details-modal-content p {
+    font-size: 16px;
+    margin-bottom: 10px; /* Đảm bảo mỗi dòng có khoảng cách */
+    line-height: 1.6; /* Tăng độ cao dòng để dễ đọc */
+  }
+  
+  /* Nút đóng modal */
+  .close-modal-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+  }
+  
+  /* Nút đóng modal khi hover */
+  .close-modal-button:hover {
+    background-color: #d32f2f;
+  }
   
 
 /*----------------------------- CÁC THẺ --------------------------*/
