@@ -163,5 +163,17 @@ window.addEventListener("DOMContentLoaded", () => {
         window.location.href = `/views/Category/product-detail.html?id=${id}&categories=${collection}&subCategories=items`;
         }
     });
-  
+
+    //Bấm ra ngoài thì tắt danh sách gợi ý
+    document.addEventListener('DOMContentLoaded', () => {
+      const suggestionBox = document.querySelector('.suggestion-box');
+      const input = document.querySelector('#search-input'); // Thay bằng input thật
+
+      document.addEventListener('click', (e) => {
+        if (!suggestionBox.contains(e.target) && !input.contains(e.target)) {
+          suggestionBox.style.display = 'none';
+        }
+      });
+    });
+
 });

@@ -52,9 +52,9 @@
           <ul>
             <li>
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm" />
+                    <input type="text" id="search-input" oninput="showSuggestions()" />
                     <button id="searchButton">🔍</button>
-                    <div id="suggestions" class="suggestion-box"></div>
+                    <div class="suggestion-box" id="suggestions"></div>
                 </div>
             </li>
             <li><a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
