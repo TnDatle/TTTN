@@ -12,6 +12,7 @@
     <script type="module" src="../../routes/Firebase-Config.js"></script>
     <script type="module" src="../../routes/Product.js"defer></script>
     <script type="module" src="/public/js/Checklogin.js" ></script>
+    <script type="module" src="/routes/Search.js"></script>
     <script type="module">
         import { displayProducts } from '../../routes/Product.js';
         
@@ -57,11 +58,12 @@
                     <ul>
                         <li>
                             <div class="search-bar">
-                                <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
-                                <button id="searchButton" class="fas fa-search"></button>
+                                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm" />
+                                <button id="searchButton">🔍</button>
+                                <div id="suggestions" class="suggestion-box"></div>
                             </div>
                         </li>
-                        <li><a href="../views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="/views/Login/Login.html"><i class="fa-regular fa-user"></i></a></li>
                         <li><a href="/views/Cart/Cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>                    
                     </ul>
                 </div>
