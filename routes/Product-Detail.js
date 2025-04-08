@@ -155,6 +155,7 @@ function addToCartSilently() {
 // Thêm vào giỏ hàng và hiển thị thông báo
 function addToCart() {
   addToCartSilently();
+   showCartNotification();
 }
 
 // 🔄 Cập nhật số lượng giỏ hàng
@@ -283,6 +284,24 @@ function displaySimilarProducts(similarProducts) {
   });
 }
 
+function buyNow() {
+  if (!currentProduct) {
+    console.error("Không có thông tin sản phẩm");
+    return;
+  }
+
+  const quantity = parseInt(document.getElementById('quantity').value) || 1;
+
+  const params = new URLSearchParams({
+    id: currentProduct.id,
+    quantity: quantity,
+    categories: currentProduct.category || category,
+    subCategories: currentProduct.subCategory || subCategory,
+  });
+
+  // Chuyển hướng đến trang giao hàng (delivery.html) cùng với tham số
+  window.location.href = `../Delivery/delivery.html`;
+}
 
 
 // 🚀 Khởi động khi trang tải xong
@@ -290,6 +309,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProductDetail();
   updateCartCount();
 
+
+  const buyNowBtn = document.getElementById('buy-now');
+  if (buyNowBtn) {
+    buyNowBtn.addEventListener('click', buyNow);
+  }
+  
   const addToCartBtn = document.getElementById('add-to-cart');
   if (addToCartBtn) {
     addToCartBtn.addEventListener('click', addToCart);
@@ -331,6 +356,41 @@ function toggleSpecTables(category) {
       console.warn('Không xác định được loại sản phẩm:', category);
   }
 }
+
+function showCartNotification() {
+  let notification = document.getElementById('cart-notification');
+
+  // Nếu chưa có phần tử, tạo mới
+  if (!notification) {
+    notification = document.createElement('div');
+    notification.id = 'cart-notification';
+    notification.style.position = 'fixed';
+    notification.style.top = '80px';
+    notification.style.right = '20px';
+    notification.style.backgroundColor = '#4caf50';
+    notification.style.color = 'white';
+    notification.style.padding = '12px 20px';
+    notification.style.borderRadius = '8px';
+    notification.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+    notification.style.zIndex = '1000';
+    notification.style.opacity = '0';
+    notification.style.transition = 'opacity 0.3s ease';
+    document.body.appendChild(notification);
+  }
+
+  notification.textContent = '✅ Đã thêm sản phẩm vào giỏ hàng!';
+  notification.style.display = 'block';
+  setTimeout(() => notification.style.opacity = '1', 10); // Hiển thị với animation
+
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 300); // Sau animation mới ẩn
+  }, 2000); // Hiển thị 2s
+}
+
+
 
 // Gán các hàm vào `window` để HTML có thể gọi
 window.changeMainImage = changeMainImage;
