@@ -88,11 +88,12 @@ async function fetchUserOrders(userEmail) {
                     <div class="product">
                         <span>${item.name || 'Không xác định'}</span>
                         <span>Số lượng: ${item.quantity || 0}</span>
-                        <span>Thành tiền: ${item.subtotal || 0} đ</span>
+                        <span>Thành tiền: ${(item.subtotal || 0).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</span>
+
                     </div>
                 `).join('')}
             </div>
-            <div class="total">Tổng tiền: ${order.total || 0} đ</div>
+            <div class="total">Tổng tiền: ${(order.total || 0).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</div>
             <div class="order-status">
                 ${createStatusDropdown(order.status, order.orderId)} <!-- ✅ Truyền orderId vào -->
             </div>
