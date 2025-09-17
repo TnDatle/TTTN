@@ -6,8 +6,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth
 const firebaseConfig = {
   apiKey: "AIzaSyDMKBDgcjZaFh2LDPs9ZuQzQFHMuZtnOPA",
   authDomain: "store-music-fae02.firebaseapp.com",
-  databaseURL:
-    "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
+  databaseURL:"https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "store-music-fae02",
   storageBucket: "store-music-fae02.appspot.com",
   messagingSenderId: "35440000355",
