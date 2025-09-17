@@ -6,22 +6,22 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/public/(.*)",
-      "dest": "/public/$1"
+      "source": "/public/(.*)",
+      "destination": "/$1"
     },
     {
-      "src": "/routes/(.*)",
-      "dest": "/routes/$1"
+      "source": "/routes/(.*)",
+      "destination": "/routes/$1"
     },
     {
-      "src": "/views/(.*)",
-      "dest": "/views/$1"
+      "source": "/views/(.*)",
+      "destination": "/views/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "app.js"
+      "source": "/(.*)",
+      "destination": "app.js"
     }
   ]
 }
