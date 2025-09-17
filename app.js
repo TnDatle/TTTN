@@ -5,10 +5,12 @@ const url = require('url');
 const express = require('express');
 const app = express();
 
-// Cấu hình để phục vụ file tĩnh từ thư mục 'views'
-app.use(express.static(path.join(__dirname, 'views')));
+// ✅ Cho phép serve static ở mọi môi trường (local & Vercel)
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/views', express.static(path.join(__dirname, 'views')));
+app.use('/routes', express.static(path.join(__dirname, 'routes')));
 
-// Hàm phục vụ file tĩnh
+// Hàm phục vụ file tĩnh (HTML, CSS, JS…)
 function serveStaticFile(filePath, res) {
     const extname = path.extname(filePath);
     const contentType = {
@@ -38,7 +40,7 @@ function serveStaticFile(filePath, res) {
     });
 }
 
-// Tạo server (nhưng không listen ở đây)
+// ✅ Tạo server chung
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;

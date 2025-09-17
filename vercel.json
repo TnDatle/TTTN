@@ -1,27 +1,9 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    }
+    { "src": "app.js", "use": "@vercel/node" }
   ],
-  "rewrites": [
-    {
-      "source": "/public/(.*)",
-      "destination": "/$1"
-    },
-    {
-      "source": "/routes/(.*)",
-      "destination": "/routes/$1"
-    },
-    {
-      "source": "/views/(.*)",
-      "destination": "/views/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "app.js"
-    }
+  "routes": [
+    { "src": "/(.*)", "dest": "app.js" }
   ]
 }
